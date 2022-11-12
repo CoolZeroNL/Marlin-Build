@@ -137,9 +137,6 @@ jobs:
           exit 1
         fi        
 
-
-        ls -la ./Marlin/Marlin
-
         # for each machin in Configuration:
         shopt -s dotglob
         find ./configuration/* -prune -type d | while IFS= read -r machine; do
@@ -150,6 +147,6 @@ jobs:
             pwd
 
             # Copy custom Configuration files to Marlin folder
-            echo cp $machine/*.h ./Marlin/Marlin/
+            cp $machine/*.h ./Marlin/Marlin/
         
         done
