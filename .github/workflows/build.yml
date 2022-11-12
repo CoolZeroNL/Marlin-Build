@@ -141,8 +141,8 @@ jobs:
         # for each machin in configuration:
         shopt -s dotglob
         find ./configuration/* -prune -type d | while IFS= read -r machine; do
-            # echo "$machine"
-            machinename=`echo "$machine" | cut -d'/' -f 2`
+            echo "$machine"
+            machinename=`echo "$machine" | cut -d'/' -f 3`
             echo "Getting configuration for: $machinename"
             # Copy custom configuration files to Marlin folder
             echo cp $machine/*.h ./Marlin/Marlin/configuration_${machinename}.h
