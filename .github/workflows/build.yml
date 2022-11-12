@@ -178,10 +178,10 @@ jobs:
         done
 
 
-    #   # - name: Push firmware
-    #   #   run: |
-    #   #     git config user.name github-actions
-    #   #     git config user.email github-actions@github.com
-    #   #     git add .
-    #   #     git commit -m "Compiled firmware"
-    #   #     git push        
+    - name: Push firmware
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Compiled firmware"
+        git push
