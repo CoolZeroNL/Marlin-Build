@@ -129,9 +129,9 @@ jobs:
               echo "$OUTPUT_DIR"
 
               # convert elf -> BIN
-              ls -la ~/.platformio/packages/toolchain-atmelavr/bin
+              ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${BOARD}_${machinename}.bin
 
-              ~/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/bin/objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${BOARD}_${machinename}.bin
+              
 
               printf "\nCopying compiled firmware to output folder..\n"
               cd ./Marlin/.pio/build/$BOARD
