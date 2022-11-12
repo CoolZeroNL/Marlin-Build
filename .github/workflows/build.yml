@@ -7,50 +7,12 @@ on:
     # paths:
     #   - 'configuration/*/**.h'
 
-
-
 jobs:
-  # build_and_push:
-    # name: Compile and Push Firmware
-    # runs-on: ubuntu-latest
-    # env:
-    #   BOARD: STM32F103RC_btt_512K
 
-    # steps:
-    #   - name: Check out repo
-    #     uses: actions/checkout@v2
-
-    #   - name: Compile firmware
-    #     run: |
-    #       echo "hi"
-
-    #   #     docker run \
-    #   #       -u root:root \
-    #   #       -e BOARD \
-    #   #       -e UPDATE_FORCE=true \
-    #   #       -e USE_TAG=2.0.8.1 \
-    #   #       -v $(pwd)/Firmware/Builds:/home/platformio/build \
-    #   #       -v $(pwd)/Firmware/Configuration:/home/platformio/CustomConfiguration \
-    #   #       frealmyr/marlin-build:latest
-
-    #   # - name: Push firmware
-    #   #   run: |
-    #   #     git config user.name github-actions
-    #   #     git config user.email github-actions@github.com
-    #   #     git add .
-    #   #     git commit -m "Compiled firmware"
-    #   #     git push
   build_and_push:
     name: Run All Tests
 
     runs-on: ubuntu-latest
-
-    # strategy:
-    #   matrix:
-    #     test-platform:
-    #     # Base Environments
-    #     - mega2560
-    #     # - mega1280
 
     steps:
 
@@ -163,54 +125,63 @@ jobs:
 
             success=$?
 
-            # # Override firmware file extension
-            # if [ "$FW_EXTENSION" ]; then
-            #   printf "\n\e[01;36mOverride Detected\e[0m\n"
-            #   printf "Setting firmware file extension to:\e[01;33m $FW_EXTENSION\e[0m\n"
-            # else
-            #   FW_EXTENSION=bin
-            # fi
+            # Override firmware file extension
+            if [ "$FW_EXTENSION" ]; then
+              printf "\n\e[01;36mOverride Detected\e[0m\n"
+              printf "Setting firmware file extension to:\e[01;33m $FW_EXTENSION\e[0m\n"
+            else
+              FW_EXTENSION=bin
+            fi
 
 
-            # if [[ ${success} -eq 0 ]]; then
-            #   OUTPUT_DIR=/home/platformio/build/$BOARD
-            #   mkdir -p $OUTPUT_DIR
+            if [[ ${success} -eq 0 ]]; then
+              OUTPUT_DIR=./build/$BOARD
+              mkdir -p $OUTPUT_DIR
 
-            #   printf "\nCopying compiled firmware to output folder..\n"
-            #   cd /home/platformio/Marlin/.pio/build/$BOARD
+              printf "\nCopying compiled firmware to output folder..\n"
+              cd .pio/build/$BOARD
 
-            #   if [ $(find . -name "*.${FW_EXTENSION}") ];
-            #   then
-            #     FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
-            #     md5sum $FIRMWARE_NAME.$FW_EXTENSION > $OUTPUT_DIR/$FIRMWARE_NAME.md5
-            #     cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR
+              if [ $(find . -name "*.${FW_EXTENSION}") ];
+              then
+                FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
+                md5sum $FIRMWARE_NAME.$FW_EXTENSION > $OUTPUT_DIR/$FIRMWARE_NAME.md5
+                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR
 
-            #     printf "\nValidating firmware checksum.."
-            #     if md5sum -c $OUTPUT_DIR/$FIRMWARE_NAME.md5;
-            #     then
-            #       printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
-            #       echo ""
-            #       echo "  (\.   \      ,/)"
-            #       echo "   \(   |\     )/    Yer done!"
-            #       echo "   //\  | \   /\\"
-            #       echo "  (/ /\_#oo#_/\ \)   Happy 3D-Printing!"
-            #       echo "   \/\  ####  /\/"
-            #       echo "        '##'"
-            #       echo ""
-            #     else
-            #       printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
-            #       printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-            #       exit 1
-            #     fi
-            #   else
-            #       printf "\e[0mMD5 Checksum Validation: \e[1;31mFirmware file with $FW_EXTENSION file extension not found!\n"
-            #       printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-            #       exit 1
-            #   fi
-            # else
-            #   printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-            #   exit 1
-            # fi
+                printf "\nValidating firmware checksum.."
+                if md5sum -c $OUTPUT_DIR/$FIRMWARE_NAME.md5;
+                then
+                  printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
+                  echo ""
+                  echo "  (\.   \      ,/)"
+                  echo "   \(   |\     )/    Yer done!"
+                  echo "   //\  | \   /\\"
+                  echo "  (/ /\_#oo#_/\ \)   Happy 3D-Printing!"
+                  echo "   \/\  ####  /\/"
+                  echo "        '##'"
+                  echo ""
+                else
+                  printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
+                  printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+                  exit 1
+                fi
+              else
+                  printf "\e[0mMD5 Checksum Validation: \e[1;31mFirmware file with $FW_EXTENSION file extension not found!\n"
+                  printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+                  exit 1
+              fi
+            else
+              printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+              exit 1
+            fi
 
 
         done
+
+
+    #   # - name: Push firmware
+    #   #   run: |
+    #   #     git config user.name github-actions
+    #   #     git config user.email github-actions@github.com
+    #   #     git add .
+    #   #     git commit -m "Compiled firmware"
+    #   #     git push        
