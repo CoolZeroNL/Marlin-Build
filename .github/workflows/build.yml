@@ -120,11 +120,6 @@ jobs:
             platformio run -d Marlin/
             success=$?
 
-            ls -la ./Marlin
-            ls -la ./Marlin/.pio
-
-            echo $FW_EXTENSION
-
             # Override firmware file extension
             if [ "$FW_EXTENSION" ]; then
               printf "\n\e[01;36mOverride Detected\e[0m\n"
@@ -138,7 +133,7 @@ jobs:
               mkdir -p $OUTPUT_DIR
 
               printf "\nCopying compiled firmware to output folder..\n"
-              cd .pio/build/$BOARD
+              cd ./Marlin/.pio/build/$BOARD
 
               if [ $(find . -name "*.${FW_EXTENSION}") ];
               then
