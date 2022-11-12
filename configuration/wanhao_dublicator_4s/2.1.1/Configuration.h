@@ -40,10 +40,6 @@
 #define CONFIGURATION_H_VERSION 02010200
 
 //debug
-// #define TEMP_SENSOR_1_MAX_TC_TMAX 1024
-#define TEMP_SENSOR_2_MAX_TC_TMAX 1024
-#define DIOTEMP_1_CS_PIN_RPORT 2
-#define DIOTEMP_2_CS_PIN_RPORT 2
 #define IGNORE_THERMOCOUPLE_ERRORS
 
 //===========================================================================
