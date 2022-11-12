@@ -637,6 +637,9 @@
 #define BED_MAXTEMP      150
 #define CHAMBER_MAXTEMP  60
 
+#define TEMP_SENSOR_1_MAX_TC_TMAX 275
+#define TEMP_SENSOR_2_MAX_TC_TMAX 275
+
 /**
  * Thermal Overshoot
  * During heatup (and printing) the temperature can often "overshoot" the target by many degrees
