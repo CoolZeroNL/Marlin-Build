@@ -45,12 +45,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        test-platform:
-        # Base Environments
-        - mega2560
-        # - mega1280
+    # strategy:
+    #   matrix:
+    #     test-platform:
+    #     # Base Environments
+    #     - mega2560
+    #     # - mega1280
 
     steps:
 
@@ -130,15 +130,11 @@ jobs:
         fi
 
         # Check if custom configuration files exists within the docker container
-        ls -la 
-        
-        ls -la configuration/*/*.h
-
-        ls -1 configuration/*/*.h 2>/dev/null | wc -l
-        pwd
         CONFIG_CHECK=$(ls -1 ./configuration/*/*.h 2>/dev/null | wc -l)
         if [ $CONFIG_CHECK = 0 ]
         then
           printf "\n\e[1;31mNo custom configuration files detected! \e[0maborting..\n"
           exit 1
         fi        
+
+        
