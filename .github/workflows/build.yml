@@ -106,6 +106,8 @@ jobs:
         shopt -s dotglob
         find ./configuration/* -prune -type d | while IFS= read -r machine; do
             
+            pwd
+
             machinename=`echo "$machine" | cut -d'/' -f 3`
             echo "Getting Configuration for: $machinename"
 
@@ -165,6 +167,9 @@ jobs:
                   printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
                   exit 1
               fi
+
+              cd ../../../../
+              
             else
               printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
               exit 1
