@@ -7,6 +7,8 @@ on:
     # paths:
     #   - 'configuration/*/**.h'
 
+    
+
 jobs:
   # build_and_push:
     # name: Compile and Push Firmware
