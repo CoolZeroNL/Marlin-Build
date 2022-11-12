@@ -130,7 +130,7 @@ jobs:
 
             if [[ ${success} -eq 0 ]]; then
               currentpath=`pwd`
-              OUTPUT_DIR=${currentpath}/build/$BOARD
+              OUTPUT_DIR=${currentpath}/compiled/$BOARD
               mkdir -p $OUTPUT_DIR
               echo "$OUTPUT_DIR"
 
