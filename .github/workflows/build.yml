@@ -38,3 +38,100 @@ jobs:
       #     git add .
       #     git commit -m "Compiled firmware"
       #     git push
+
+  test_builds:
+    name: Run All Tests
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        test-platform:
+        # Base Environments
+        - mega2560
+        - mega1280
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Cache pip
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Cache PlatformIO
+      uses: actions/cache@v3
+      with:
+        path: ~/.platformio
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+
+    - name: Select Python 3.7
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.7' # Version range or exact version of a Python version to use, using semvers version range syntax.
+        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+
+    - name: Install PlatformIO
+      run: |
+        pip install -U platformio
+        pio upgrade --dev
+        pio pkg update --global
+
+    - name: Build Marlin
+      run: |
+        echo ""
+
+        USE_LATEST_TAG=false            # true / false
+        USE_TAG=''                      # 2.1.1
+        USE_BRANCH='bugfix-2.1.x'       # bugfix-2.1.x
+
+        # git repository
+        git clone https://github.com/MarlinFirmware/Marlin.git 
+
+        # Override MarlinFirmware version using branch or tag
+        if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
+
+          printf "\n\e[01;36mUse Latest\e[0m\n"
+          cd Marlin/
+          git fetch origin
+          git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+          printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+          cd ..
+        
+        elif [[ $USE_TAG ]]; then
+        
+          printf "\n\e[01;36mUse TAG\e[0m\n"
+          cd Marlin/
+          git fetch origin
+          git checkout $USE_TAG
+          printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+          cd ..
+        
+        elif [[ $USE_BRANCH ]]; then
+        
+          printf "\n\e[01;36mUse Branch\e[0m\n"
+          cd Marlin/
+          git fetch origin
+          git checkout $USE_BRANCH
+          printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
+          cd ..
+        
+        else
+        
+          echo "no option selected!"
+          exit 1
+        
+        fi
+
+        # Check if custom configuration files exists within the docker container
+        CONFIG_CHECK=$(ls -1 ./configration/*/*.h 2>/dev/null | wc -l)
+        if [ $CONFIG_CHECK = 0 ]
+        then
+          printf "\n\e[1;31mNo custom configuration files detected! \e[0maborting..\n"
+          exit 1
+        fi        
