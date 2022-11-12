@@ -102,7 +102,7 @@ jobs:
           exit 1
         fi        
 
-        # for each machin in Configuration:
+        # for each machine in Configuration folder:
         shopt -s dotglob
         find ./configuration/* -prune -type d | while IFS= read -r machine; do
             
@@ -123,7 +123,7 @@ jobs:
 
             ls -la
             echo $FW_EXTENSION
-            
+
             success=$?
 
             # Override firmware file extension
@@ -133,7 +133,6 @@ jobs:
             else
               FW_EXTENSION=bin
             fi
-
 
             if [[ ${success} -eq 0 ]]; then
               OUTPUT_DIR=./build/$BOARD
