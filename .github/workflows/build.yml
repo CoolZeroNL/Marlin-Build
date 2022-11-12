@@ -122,6 +122,7 @@ jobs:
 
             # find / -name .pio
             ls -la ~
+            ls -la ~/.platformio/packages/
 
             echo $FW_EXTENSION
 
