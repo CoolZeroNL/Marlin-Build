@@ -40,6 +40,8 @@
 #define CONFIGURATION_H_VERSION 02010200
 
 //debug
+// #define TEMP_SENSOR_1_MAX_TC_TMAX 1024
+#define TEMP_SENSOR_2_MAX_TC_TMAX 1024
 #define IGNORE_THERMOCOUPLE_ERRORS
 
 //===========================================================================
@@ -636,9 +638,6 @@
 #define HEATER_7_MAXTEMP 275
 #define BED_MAXTEMP      150
 #define CHAMBER_MAXTEMP  60
-
-#define TEMP_SENSOR_1_MAX_TC_TMAX 275
-#define TEMP_SENSOR_2_MAX_TC_TMAX 275
 
 /**
  * Thermal Overshoot
