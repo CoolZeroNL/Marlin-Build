@@ -120,8 +120,9 @@ jobs:
             platformio run -d Marlin/
             success=$?
 
-            find / -name .pio
-            
+            # find / -name .pio
+            ls -la ~
+
             echo $FW_EXTENSION
 
             # Override firmware file extension
@@ -171,7 +172,6 @@ jobs:
               printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
               exit 1
             fi
-
 
         done
 
