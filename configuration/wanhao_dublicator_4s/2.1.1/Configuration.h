@@ -39,6 +39,13 @@
  */
 #define CONFIGURATION_H_VERSION 02010200
 
+
+#define MAX6675_IS_MAX31865
+#define MAX31865_CS_PIN 65
+#define MAX31865_MOSI_PIN 63
+#define MAX31865_MISO_PIN 42
+#define MAX31865_SCK_PIN 40
+
 //===========================================================================
 //============================= Getting Started =============================
 //===========================================================================
@@ -447,7 +454,7 @@
 /**
  * --NORMAL IS 4.7kΩ PULLUP!-- 1kΩ pullup can be used on hotend sensor, using correct resistor and table
  *
- * Temperature sensors available:
+ * Tex`perature sensors available:
  *
  *  SPI RTD/Thermocouple Boards - IMPORTANT: Read the NOTE below!
  *  -------
