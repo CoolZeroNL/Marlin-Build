@@ -139,6 +139,8 @@ jobs:
               printf "\nCopying compiled firmware to output folder..\n"
               cd ./Marlin/.pio/build/$BOARD
 
+              ls -la
+
               if [ $(find . -name "*.${FW_EXTENSION}") ];
               then
                 FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
