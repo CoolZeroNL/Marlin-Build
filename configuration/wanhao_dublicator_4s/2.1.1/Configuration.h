@@ -39,10 +39,7 @@
  */
 #define CONFIGURATION_H_VERSION 02010200
 
-
-// #define MAX6675_IS_MAX31865
-#define TEMP_0_CS_PIN 65
-#define TEMP_1_CS_PIN 65
+//debug
 #define IGNORE_THERMOCOUPLE_ERRORS
 
 //===========================================================================
