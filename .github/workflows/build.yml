@@ -133,7 +133,7 @@ jobs:
         fi
 
         # Check if custom configuration files exists within the docker container
-        CONFIG_CHECK=$(ls -1 ./configuration/*/*.h 2>/dev/null | wc -l)
+        CONFIG_CHECK=$(ls -1 ./configuration/*/*/*.h 2>/dev/null | wc -l)
         if [ $CONFIG_CHECK = 0 ]
         then
           printf "\n\e[1;31mNo custom Configuration files detected! \e[0maborting..\n"
