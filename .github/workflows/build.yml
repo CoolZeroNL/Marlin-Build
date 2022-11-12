@@ -57,19 +57,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Cache pip
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+    # - name: Cache pip
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ~/.cache/pip
+    #     key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-pip-
 
-    - name: Cache PlatformIO
-      uses: actions/cache@v3
-      with:
-        path: ~/.platformio
-        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+    # - name: Cache PlatformIO
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ~/.platformio
+    #     key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
 
     - name: Select Python 3.7
       uses: actions/setup-python@v3
@@ -130,6 +130,8 @@ jobs:
         fi
 
         # Check if custom configuration files exists within the docker container
+        ls -la 
+        pwd
         CONFIG_CHECK=$(ls -1 ./configration/*/*.h 2>/dev/null | wc -l)
         if [ $CONFIG_CHECK = 0 ]
         then
