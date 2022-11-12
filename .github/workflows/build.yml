@@ -131,6 +131,8 @@ jobs:
               echo "$OUTPUT_DIR"
 
               # convert elf -> BIN
+              ls -la ~/.platformio/packages/
+              
               ~/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/bin/objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${BOARD}_${machinename}.bin
 
               printf "\nCopying compiled firmware to output folder..\n"
@@ -141,11 +143,12 @@ jobs:
               if [ $(find . -name "*.${FW_EXTENSION}") ];
               then
                 FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
-                md5sum $FIRMWARE_NAME.$FW_EXTENSION > $OUTPUT_DIR/$FIRMWARE_NAME.md5
                 cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/firmware_${BOARD}_${machinename}.$FW_EXTENSION
 
+                md5sum $OUTPUT_DIR/firmware_${BOARD}_${machinename}.$FW_EXTENSION > $OUTPUT_DIR/firmware_${BOARD}_${machinename}.md5
+                
                 printf "\nValidating firmware checksum.."
-                if md5sum -c $OUTPUT_DIR/$FIRMWARE_NAME.md5;
+                if md5sum -c $OUTPUT_DIR/firmware_${BOARD}_${machinename}.md5;
                 then
                   printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
                   echo ""
