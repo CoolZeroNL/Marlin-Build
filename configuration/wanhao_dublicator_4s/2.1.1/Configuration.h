@@ -40,11 +40,10 @@
 #define CONFIGURATION_H_VERSION 02010200
 
 
-#define MAX6675_IS_MAX31865
-#define MAX31865_CS_PIN 65
-#define MAX31865_MOSI_PIN 63
-#define MAX31865_MISO_PIN 42
-#define MAX31865_SCK_PIN 40
+// #define MAX6675_IS_MAX31865
+#define TEMP_0_CS_PIN 65
+#define TEMP_1_CS_PIN 65
+#define IGNORE_THERMOCOUPLE_ERRORS
 
 //===========================================================================
 //============================= Getting Started =============================
