@@ -122,7 +122,8 @@ jobs:
             platformio run -d Marlin/
 
             ls -la
-
+            echo $FW_EXTENSION
+            
             success=$?
 
             # Override firmware file extension
