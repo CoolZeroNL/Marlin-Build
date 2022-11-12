@@ -40,7 +40,6 @@
 #define CONFIGURATION_H_VERSION 02010200
 
 //debug
-#define HAS_MAX6675
 #define IGNORE_THERMOCOUPLE_ERRORS
 
 //===========================================================================
