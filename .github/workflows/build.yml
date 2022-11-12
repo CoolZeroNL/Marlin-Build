@@ -114,8 +114,8 @@ jobs:
         
             # Change the default board with value in environment variable
             sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./Marlin/platformio.ini
-
-            cat ./Marlin/platformio.ini
+            
+            ls -la
 
             # Build Marlin firmware
             printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
