@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'configuration/*/*/**.h'
+    # paths:
+    #   - 'configuration/*/*/**.h'
 
 jobs:
 
@@ -133,8 +133,6 @@ jobs:
 
               printf "\nCopying compiled firmware to output folder..\n"
               cd ./Marlin/.pio/build/$BOARD
-
-              ls -la
 
               if [ $(find . -name "*.${FW_EXTENSION}") ];
               then
