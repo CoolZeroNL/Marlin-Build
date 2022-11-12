@@ -20,8 +20,8 @@
  *
  */
 #pragma once
-
-// #define CONFIG_EXAMPLES_DIR "Wanhao/Duplicator 4S"
+#error "Don't build with import-2.1.x configurations!"
+#error "Use the 'bugfix...' or 'release...' configurations matching your Marlin version."
 
 /**
  * Configuration.h
