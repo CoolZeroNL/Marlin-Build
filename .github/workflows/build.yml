@@ -122,19 +122,16 @@ jobs:
             platformio run -d Marlin/
             success=$?
 
-            # Override firmware file extension
-            if [ "$FW_EXTENSION" ]; then
-              printf "\n\e[01;36mOverride Detected\e[0m\n"
-              printf "Setting firmware file extension to:\e[01;33m $FW_EXTENSION\e[0m\n"
-            else
-              FW_EXTENSION=hex
-            fi
+            FW_EXTENSION=hex
 
             if [[ ${success} -eq 0 ]]; then
               currentpath=`pwd`
               OUTPUT_DIR=${currentpath}/compiled/$BOARD
               mkdir -p $OUTPUT_DIR
               echo "$OUTPUT_DIR"
+
+              # convert elf -> BIN
+              ~/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/bin/objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${BOARD}_${machinename}.bin
 
               printf "\nCopying compiled firmware to output folder..\n"
               cd ./Marlin/.pio/build/$BOARD
