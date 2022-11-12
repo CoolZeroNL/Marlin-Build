@@ -90,6 +90,7 @@ jobs:
         USE_LATEST_TAG=false            # true / false
         USE_TAG=''                      # 2.1.1
         USE_BRANCH='bugfix-2.1.x'       # bugfix-2.1.x
+        BOARD='mega2560'                # mega2560 / 
 
         # git repository
         git clone https://github.com/MarlinFirmware/Marlin.git 
@@ -144,9 +145,18 @@ jobs:
             machinename=`echo "$machine" | cut -d'/' -f 3`
             echo "Getting Configuration for: $machinename"
 
-            pwd
-
             # Copy custom Configuration files to Marlin folder
             cp $machine/*.h ./Marlin/Marlin/
         
+            # Change the default board with value in environment variable
+            sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./Marlin/platformio.ini
+
+            cat ./Marlin/platformio.ini
+
+            # Build Marlin firmware
+            printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
+            platformio run -d Marlin/
+
+            success=$?
+
         done
