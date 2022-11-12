@@ -131,12 +131,8 @@ jobs:
               # convert elf -> BIN
               ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${BOARD}_${machinename}.bin
 
-              
-
               printf "\nCopying compiled firmware to output folder..\n"
               cd ./Marlin/.pio/build/$BOARD
-
-              ls -la
 
               if [ $(find . -name "*.${FW_EXTENSION}") ];
               then
