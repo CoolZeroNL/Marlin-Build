@@ -105,8 +105,6 @@ jobs:
         # for each machine in Configuration folder:
         shopt -s dotglob
         find ./configuration/* -prune -type d | while IFS= read -r machine; do
-            
-            pwd
 
             machinename=`echo "$machine" | cut -d'/' -f 3`
             echo "Getting Configuration for: $machinename"
@@ -131,7 +129,7 @@ jobs:
               echo "$OUTPUT_DIR"
 
               # convert elf -> BIN
-              ls -la ~/.platformio/packages/toolchain-atmelavr
+              ls -la ~/.platformio/packages/toolchain-atmelavr/bin
 
               ~/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/bin/objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${BOARD}_${machinename}.bin
 
