@@ -120,9 +120,8 @@ jobs:
             platformio run -d Marlin/
             success=$?
 
-            # find / -name .pio
-            ls -la ~
-            ls -la ~/.platformio/packages/
+            ls -la ./Marlin
+            ls -la ./Marlin/.pio
 
             echo $FW_EXTENSION
 
