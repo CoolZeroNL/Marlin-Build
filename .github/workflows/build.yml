@@ -129,20 +129,22 @@ jobs:
               echo "$OUTPUT_DIR"
 
               # convert elf -> BIN
-              ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.bin
+              ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${BOARD}_${machinename}.bin
 
               printf "\nCopying compiled firmware to output folder..\n"
               cd ./Marlin/.pio/build/$BOARD
 
+              ls -la
+
               if [ $(find . -name "*.${FW_EXTENSION}") ];
               then
                 FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
-                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.$FW_EXTENSION
+                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/firmware_${BOARD}_${machinename}.$FW_EXTENSION
 
-                md5sum $OUTPUT_DIR/firmware_${machinename}.$FW_EXTENSION > $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.md5
+                md5sum $OUTPUT_DIR/firmware_${BOARD}_${machinename}.$FW_EXTENSION > $OUTPUT_DIR/firmware_${BOARD}_${machinename}.md5
                 
                 printf "\nValidating firmware checksum.."
-                if md5sum -c $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.md5;
+                if md5sum -c $OUTPUT_DIR/firmware_${BOARD}_${machinename}.md5;
                 then
                   printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
                   echo ""
