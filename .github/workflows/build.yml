@@ -50,7 +50,7 @@ jobs:
         test-platform:
         # Base Environments
         - mega2560
-        - mega1280
+        # - mega1280
 
     steps:
 
@@ -74,8 +74,8 @@ jobs:
     - name: Select Python 3.7
       uses: actions/setup-python@v3
       with:
-        python-version: '3.7' # Version range or exact version of a Python version to use, using semvers version range syntax.
-        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+        python-version: '3.7'     # Version range or exact version of a Python version to use, using semvers version range syntax.
+        architecture: 'x64'       # optional x64 or x86. Defaults to x64 if not specified
 
     - name: Install PlatformIO
       run: |
@@ -131,6 +131,8 @@ jobs:
 
         # Check if custom configuration files exists within the docker container
         ls -la 
+        ls -la configuration/*
+        ls -1 configration/*/*.h 2>/dev/null | wc -l
         pwd
         CONFIG_CHECK=$(ls -1 ./configration/*/*.h 2>/dev/null | wc -l)
         if [ $CONFIG_CHECK = 0 ]
