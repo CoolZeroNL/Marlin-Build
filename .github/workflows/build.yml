@@ -125,12 +125,14 @@ jobs:
               printf "\n\e[01;36mOverride Detected\e[0m\n"
               printf "Setting firmware file extension to:\e[01;33m $FW_EXTENSION\e[0m\n"
             else
-              FW_EXTENSION=bin
+              FW_EXTENSION=hex
             fi
 
             if [[ ${success} -eq 0 ]]; then
-              OUTPUT_DIR=./build/$BOARD
+              currentpath=`pwd`
+              OUTPUT_DIR=${currentpath}/build/$BOARD
               mkdir -p $OUTPUT_DIR
+              echo "$OUTPUT_DIR"
 
               printf "\nCopying compiled firmware to output folder..\n"
               cd ./Marlin/.pio/build/$BOARD
