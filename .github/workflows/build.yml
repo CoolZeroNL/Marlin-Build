@@ -10,7 +10,7 @@ on:
 jobs:
 
   build_and_push:
-    name: Run All Tests
+    name: Build Marlin
 
     runs-on: ubuntu-latest
 
@@ -45,7 +45,7 @@ jobs:
         pio upgrade --dev
         pio pkg update --global
 
-    - name: Build Marlin
+    - name: Build
       run: |
         echo ""
 
@@ -120,11 +120,10 @@ jobs:
             # Build Marlin firmware
             printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
             platformio run -d Marlin/
+            success=$?
 
             ls -la
             echo $FW_EXTENSION
-
-            success=$?
 
             # Override firmware file extension
             if [ "$FW_EXTENSION" ]; then
