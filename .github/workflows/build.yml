@@ -3,11 +3,11 @@ name: Build Marlin Firmware
 on:
   push:
     branches:
-      - master
+      - main
     # paths:
     #   - 'configuration/*/**.h'
 
-    
+
 
 jobs:
   # build_and_push:
