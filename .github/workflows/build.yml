@@ -130,7 +130,7 @@ jobs:
         fi
 
         # Check if custom configuration files exists within the docker container
-        CONFIG_CHECK=$(ls -1 ./Configuration/*/*.h 2>/dev/null | wc -l)
+        CONFIG_CHECK=$(ls -1 ./configuration/*/*.h 2>/dev/null | wc -l)
         if [ $CONFIG_CHECK = 0 ]
         then
           printf "\n\e[1;31mNo custom Configuration files detected! \e[0maborting..\n"
@@ -142,7 +142,7 @@ jobs:
 
         # for each machin in Configuration:
         shopt -s dotglob
-        find ./Configuration/* -prune -type d | while IFS= read -r machine; do
+        find ./configuration/* -prune -type d | while IFS= read -r machine; do
             
             machinename=`echo "$machine" | cut -d'/' -f 3`
             echo "Getting Configuration for: $machinename"
@@ -150,6 +150,6 @@ jobs:
             pwd
 
             # Copy custom Configuration files to Marlin folder
-            echo cp $machine/*.h ./Marlin/Marlin/Configuration_${machinename}.h
+            echo cp $machine/*.h ./Marlin/Marlin/
         
         done
