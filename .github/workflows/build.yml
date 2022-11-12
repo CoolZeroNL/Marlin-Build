@@ -143,7 +143,7 @@ jobs:
               then
                 FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
                 md5sum $FIRMWARE_NAME.$FW_EXTENSION > $OUTPUT_DIR/$FIRMWARE_NAME.md5
-                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR
+                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/firmware_${BOARD}_${machinename}.$FW_EXTENSION
 
                 printf "\nValidating firmware checksum.."
                 if md5sum -c $OUTPUT_DIR/$FIRMWARE_NAME.md5;
