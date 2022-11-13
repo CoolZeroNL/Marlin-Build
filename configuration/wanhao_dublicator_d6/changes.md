@@ -29,3 +29,9 @@
 | #define MOVE_Z_WHEN_IDLE                           | //#define MOVE_Z_WHEN_IDLE                                 | // Jump to the move Z menu on doubleclick when printer is idle.
 | #define EMERGENCY_PARSER                           | //#define EMERGENCY_PARSER                                 | // Add a low-level parser to intercept certain commands as they * enter the serial receive buffer, so they cannot be blocked. * Currently handles M108, M112, M410, M876
 
+
+# look into:
+    prepare for ABS
+    prepare for PLA...
+
+    menu shows only one..
