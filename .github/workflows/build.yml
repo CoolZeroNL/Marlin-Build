@@ -57,6 +57,8 @@ jobs:
         USE_CONFIG_VERSION='2.1.1'      # 2.1.1
         BOARD='mega2560ext'             # mega2560 / 
 
+        `
+
         # git repository
         git clone https://github.com/MarlinFirmware/Marlin.git 
         # git clone https://github.com/CoolZeroNL/Marlin.git
@@ -69,6 +71,7 @@ jobs:
           git fetch origin
           git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
           printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+          git_commit_hash=`git rev-parse --short HEAD
           cd ..
         
         elif [[ $USE_TAG ]]; then
@@ -78,6 +81,7 @@ jobs:
           git fetch origin
           git checkout $USE_TAG
           printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+          git_commit_hash=`git rev-parse --short HEAD
           cd ..
         
         elif [[ $USE_BRANCH ]]; then
@@ -87,6 +91,7 @@ jobs:
           git fetch origin
           git checkout $USE_BRANCH
           printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
+          git_commit_hash=`git rev-parse --short HEAD
           cd ..
         
         else
@@ -136,8 +141,10 @@ jobs:
               mkdir -p $OUTPUT_DIR
               echo "$OUTPUT_DIR"
 
+              export_filename='firmware_${USE_BRANCH}${USE_TAG}_${git_commit_hash}_${machinename}'
+
               # convert elf -> BIN
-              ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.bin
+              ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./Marlin/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
 
               printf "\nCopying compiled firmware to output folder..\n"
               cd ./Marlin/.pio/build/$BOARD
@@ -145,12 +152,12 @@ jobs:
               if [ $(find . -name "*.${FW_EXTENSION}") ];
               then
                 FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
-                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.$FW_EXTENSION
+                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/${export_filename}.$FW_EXTENSION
 
-                md5sum $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.$FW_EXTENSION > $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.md5
+                md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
                 
                 printf "\nValidating firmware checksum.."
-                if md5sum -c $OUTPUT_DIR/firmware_${USE_BRANCH}${USE_TAG}_${machinename}.md5;
+                if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
                 then
                   printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
                   echo ""
