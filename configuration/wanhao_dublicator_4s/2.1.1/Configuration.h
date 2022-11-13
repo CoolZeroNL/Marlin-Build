@@ -40,7 +40,7 @@
 #define CONFIGURATION_H_VERSION 02010200
 
 //debug
-#define IGNORE_THERMOCOUPLE_ERRORS
+// #define IGNORE_THERMOCOUPLE_ERRORS
 
 //===========================================================================
 //============================= Getting Started =============================
