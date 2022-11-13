@@ -77,13 +77,13 @@ jobs:
         USE_CONFIG_VERSION='2.0.5'
         
         function fix_old_stuff() {
-          # pwd
+          pwd
           ls -la
           # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
           # sed -i -e '/^HAS_TMC26X/{N; s/\n/ /;}' Marlin/Marlin/ini/features.ini
           # sed -i 's|TMC26XStepper=https://github.com/MarlinFirmware/TMC26XStepper/archive/master.zip                                          ||g' Marlin/Marlin/ini/features.ini
 
-          sed -i '/https:\/\/github.com\/trinamic\/TMC26XStepper\/archive\/master.zip/d' platform.ini
+          sed -i '/https:\/\/github.com\/trinamic\/TMC26XStepper\/archive\/master.zip/d' Marlin/platform.ini
         }
         # ---------------------------------------------------------------------------
 
