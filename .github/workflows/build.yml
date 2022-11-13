@@ -52,7 +52,7 @@ jobs:
         USE_LATEST_TAG=false            # true / false
         USE_TAG=''                      # 2.1.1               # tag OR branch
         # USE_BRANCH='bugfix-2.1.x'       # bugfix-2.1.x
-        USE_BRANCH='fix-temp_sensor'       # bugfix-2.1.x
+        USE_BRANCH='fix-temp_sensor'
         
         USE_CONFIG_VERSION='2.1.1'      # 2.1.1
         BOARD='mega2560ext'             # mega2560 / 
