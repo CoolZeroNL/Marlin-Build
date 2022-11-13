@@ -62,8 +62,8 @@ jobs:
         # USE_BRANCH='bugfix-2.1.x'
         # USE_CONFIG_VERSION='2.1.1'
         
-        USE_BRANCH='bugfix-2.0.x'
-        USE_CONFIG_VERSION='2.0'
+        USE_TAG='2.0.5'
+        USE_CONFIG_VERSION='2.0.5'
 
         # Override MarlinFirmware version using branch or tag
         if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
