@@ -102,7 +102,7 @@ jobs:
           git checkout $USE_TAG
           printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
           git_commit_hash=`git rev-parse --short HEAD`
-          fix_old_stuff()
+          fix_old_stuff
           cd ..
         
         elif [[ $USE_BRANCH ]]; then
@@ -113,7 +113,7 @@ jobs:
           git checkout $USE_BRANCH
           printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
           git_commit_hash=`git rev-parse --short HEAD`
-          fix_old_stuff()
+          fix_old_stuff
           cd ..
         
         else
