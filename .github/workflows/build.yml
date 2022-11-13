@@ -51,15 +51,15 @@ jobs:
 
         USE_LATEST_TAG=false            # true / false
         USE_TAG=''                      # 2.1.1               # tag OR branch
-        USE_BRANCH='bugfix-2.1.x'       # bugfix-2.1.x
-        # USE_BRANCH='fix-temp_sensor'
+        # USE_BRANCH='bugfix-2.1.x'       # bugfix-2.1.x
+        USE_BRANCH='fix-temp_sensor'
         
         USE_CONFIG_VERSION='2.1.1'      # 2.1.1
         BOARD='mega2560ext'             # mega2560 / 
 
         # git repository
-        git clone https://github.com/MarlinFirmware/Marlin.git 
-        # git clone https://github.com/CoolZeroNL/Marlin.git
+        # git clone https://github.com/MarlinFirmware/Marlin.git 
+        git clone https://github.com/CoolZeroNL/Marlin.git
 
         # Override MarlinFirmware version using branch or tag
         if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
