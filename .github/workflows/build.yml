@@ -76,7 +76,7 @@ jobs:
         USE_TAG='2.0.5'
         USE_CONFIG_VERSION='2.0.5'
         
-        function fix_old_stuff() 
+        function fix_old_stuff() {
           # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
           sed -i -e '/^HAS_TMC26X/{N; s/\n/ /;}' Marlin/ini/features.ini
           sed -i 's|TMC26XStepper=https://github.com/MarlinFirmware/TMC26XStepper/archive/master.zip                                          ||g' Marlin/ini/features.ini
