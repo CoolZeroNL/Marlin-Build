@@ -57,8 +57,6 @@ jobs:
         USE_CONFIG_VERSION='2.1.1'      # 2.1.1
         BOARD='mega2560ext'             # mega2560 / 
 
-        `
-
         # git repository
         git clone https://github.com/MarlinFirmware/Marlin.git 
         # git clone https://github.com/CoolZeroNL/Marlin.git
