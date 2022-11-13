@@ -57,14 +57,18 @@ jobs:
         # BOARD='mega2560ext'             # mega2560 /  
         # USE_BRANCH='fix-temp_sensor'
         # USE_CONFIG_VERSION='bugfix-2.1.x'
-
+        # function fix_old_stuff() {
+        #   return true
+        # }
         # ---------------------------------------------------------------------------
 
         # git clone https://github.com/MarlinFirmware/Marlin.git 
         # BOARD='mega2560ext'
         # USE_BRANCH='bugfix-2.1.x'
         # USE_CONFIG_VERSION='bugfix-2.1.x'
-        
+        # function fix_old_stuff() {
+        #   return true
+        # }
         # ---------------------------------------------------------------------------
 
         git clone https://github.com/MarlinFirmware/Marlin.git 
@@ -72,12 +76,11 @@ jobs:
         USE_TAG='2.0.5'
         USE_CONFIG_VERSION='2.0.5'
         
-        ls -la
-
-        # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
-        sed -i -e '/^HAS_TMC26X/{N; s/\n/ /;}' Marlin/ini/features.ini
-        sed -i 's|TMC26XStepper=https://github.com/MarlinFirmware/TMC26XStepper/archive/master.zip                                          ||g' Marlin/ini/features.ini
-
+        function fix_old_stuff() 
+          # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
+          sed -i -e '/^HAS_TMC26X/{N; s/\n/ /;}' Marlin/ini/features.ini
+          sed -i 's|TMC26XStepper=https://github.com/MarlinFirmware/TMC26XStepper/archive/master.zip                                          ||g' Marlin/ini/features.ini
+        }
         # ---------------------------------------------------------------------------
 
         # Override MarlinFirmware version using branch or tag
@@ -99,6 +102,7 @@ jobs:
           git checkout $USE_TAG
           printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
           git_commit_hash=`git rev-parse --short HEAD`
+          fix_old_stuff()
           cd ..
         
         elif [[ $USE_BRANCH ]]; then
@@ -109,6 +113,7 @@ jobs:
           git checkout $USE_BRANCH
           printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
           git_commit_hash=`git rev-parse --short HEAD`
+          fix_old_stuff()
           cd ..
         
         else
