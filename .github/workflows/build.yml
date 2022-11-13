@@ -71,7 +71,7 @@ jobs:
           git fetch origin
           git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
           printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
-          git_commit_hash=`git rev-parse --short HEAD
+          git_commit_hash=`git rev-parse --short HEAD`
           cd ..
         
         elif [[ $USE_TAG ]]; then
@@ -81,7 +81,7 @@ jobs:
           git fetch origin
           git checkout $USE_TAG
           printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
-          git_commit_hash=`git rev-parse --short HEAD
+          git_commit_hash=`git rev-parse --short HEAD`
           cd ..
         
         elif [[ $USE_BRANCH ]]; then
@@ -91,7 +91,7 @@ jobs:
           git fetch origin
           git checkout $USE_BRANCH
           printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
-          git_commit_hash=`git rev-parse --short HEAD
+          git_commit_hash=`git rev-parse --short HEAD`
           cd ..
         
         else
