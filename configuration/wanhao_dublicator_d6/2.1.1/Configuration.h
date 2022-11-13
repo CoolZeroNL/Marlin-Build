@@ -1268,7 +1268,11 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-#define S_CURVE_ACCELERATION
+
+// was enabled in 2.0....
+// #define S_CURVE_ACCELERATION
+
+// #error "LIN_ADVANCE and S_CURVE_ACCELERATION may not play well together! Enable EXPERIMENTAL_SCURVE to continue."
 
 //===========================================================================
 //============================= Z Probe Options =============================
