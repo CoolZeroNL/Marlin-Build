@@ -115,7 +115,13 @@ jobs:
             # Change the default board with value in environment variable
             sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./Marlin/platformio.ini
             
-            # Build Marlin firmware
+            # # // LIB_MAX6675 can be added to the build_flags in platformio.ini to use a user-defined library
+            # # // If LIB_MAX6675 is not on the build_flags then raw SPI reads will be used.
+            # linenr=`cat ./Marlin/platformio.ini | grep -n "\-g3 -D__MARLIN_FIRMWARE__ -DNDEBUG" | awk -F: '{print $1}'`
+            # linenr=$((linenr+1))
+            # sed -i ''${linenr}'i \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ - LIB_MAX6675' ./Marlin/platformio.ini
+
+            # Build Marlin firmware 
             printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
             platformio run -d Marlin/
             success=$?
