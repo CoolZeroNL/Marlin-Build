@@ -53,24 +53,24 @@ jobs:
 
         # ---------------------------------------------------------------------------
 
-        git clone https://github.com/CoolZeroNL/Marlin.git
-        BOARD='mega2560ext'             # mega2560 /  
-        USE_BRANCH='fix-temp_sensor'
+        # git clone https://github.com/CoolZeroNL/Marlin.git
+        # BOARD='mega2560ext'             # mega2560 /  
+        # USE_BRANCH='fix-temp_sensor'
+        # USE_CONFIG_VERSION='bugfix-2.1.x'
+        # function fix_old_stuff() {
+        #   return true
+        # }
+
+        # ---------------------------------------------------------------------------
+
+        git clone https://github.com/MarlinFirmware/Marlin.git 
+        BOARD='mega2560ext'
+        USE_BRANCH='bugfix-2.1.x'
         USE_CONFIG_VERSION='bugfix-2.1.x'
         function fix_old_stuff() {
           return true
         }
 
-        # ---------------------------------------------------------------------------
-
-        # git clone https://github.com/MarlinFirmware/Marlin.git 
-        # BOARD='mega2560ext'
-        # USE_BRANCH='bugfix-2.1.x'
-        # USE_CONFIG_VERSION='bugfix-2.1.x'
-        # function fix_old_stuff() {
-        #   return true
-        # }
-        
         # ---------------------------------------------------------------------------
 
         # git clone https://github.com/MarlinFirmware/Marlin.git 
