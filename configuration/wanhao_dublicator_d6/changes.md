@@ -35,7 +35,7 @@
 | #define EMERGENCY_PARSER                           | //#define EMERGENCY_PARSER                                 | // Add a low-level parser to intercept certain commands as they * enter the serial receive buffer, so they cannot be blocked. * Currently handles M108, M112, M410, M876
 
 
-# look into:
+# look into custom menu that was in 2.0, but not in 2.1.1 
     prepare for ABS
     prepare for PLA...
 
