@@ -58,7 +58,7 @@ jobs:
         # USE_BRANCH='fix-temp_sensor'
         # USE_CONFIG_VERSION='bugfix-2.1.x'
         # function fix_old_stuff() {
-        #   return true
+        #   return
         # }
 
         # ---------------------------------------------------------------------------
@@ -68,7 +68,7 @@ jobs:
         USE_BRANCH='bugfix-2.1.x'
         USE_CONFIG_VERSION='bugfix-2.1.x'
         function fix_old_stuff() {
-          return true
+          return 
         }
 
         # ---------------------------------------------------------------------------
