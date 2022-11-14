@@ -174,6 +174,8 @@ jobs:
 
                 md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
                 
+                echo "https://github.com/MarlinFirmware/Marlin/tree/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
+
                 printf "\nValidating firmware checksum.."
                 if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
                 then
