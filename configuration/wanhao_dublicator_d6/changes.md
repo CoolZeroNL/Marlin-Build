@@ -5,15 +5,20 @@
 |                                                           | #define SWITCHING_NOZZLE_SERVO_DWELL 2500                  | // Dwell time to wait for servo to make physical move
 | #define DEFAULT_MAX_FEEDRATE       { 250, 250, 5, 25 }    | #define DEFAULT_MAX_FEEDRATE      { 300, 300, 5, 25 }      | 
 | #define DEFAULT_MAX_ACCELERATION   { 750, 750, 100, 500 } | #define DEFAULT_MAX_ACCELERATION  { 3000, 3000, 100, 500 } | 
-| #define DEFAULT_ACCELERATION          800                 | #define DEFAULT_ACCELERATION                  1500         | // X, Y, Z ... and E acceleration for printing moves
-| #define DEFAULT_RETRACT_ACCELERATION  500                 | #define DEFAULT_RETRACT_ACCELERATION          1500         | // E acceleration for retracts
-| #define DEFAULT_TRAVEL_ACCELERATION   1000                | #define DEFAULT_TRAVEL_ACCELERATION           3000         | // X, Y, Z ... acceleration for travel (non printing) moves
 | #define DEFAULT_EJERK    5.0                              | #define DEFAULT_EJERK    1.0                               | // May be used by Linear Advance
 | #define S_CURVE_ACCELERATION                              | //#define S_CURVE_ACCELERATION                             | // This option eliminates vibration during printing by fitting a Bézier curve to move acceleration, producing much smoother direction changes.
 | #define LEVEL_BED_CORNERS                                 | //#define LEVEL_BED_CORNER                                 | // Add a menu item to move between bed corners for manual bed adjustment
 | #define XY_SKEW_FACTOR 0.0                                | //#define XY_SKEW_FACTOR 0.0                               | // Or, set the XY skew factor directly
 |
  
+
+## Tuning
+|-----------------------------------------------------------|------------------------------------------------------------|-|
+| #define DEFAULT_ACCELERATION          800                 | #define DEFAULT_ACCELERATION                  1000  (1500)       | // X, Y, Z ... and E acceleration for printing moves
+| #define DEFAULT_RETRACT_ACCELERATION  500                 | #define DEFAULT_RETRACT_ACCELERATION          800   (1500)       | // E acceleration for retracts
+| #define DEFAULT_TRAVEL_ACCELERATION   1000                | #define DEFAULT_TRAVEL_ACCELERATION           1500  (3000)       | // X, Y, Z ... acceleration for travel (non printing) moves
+
+
 # Configuration_adv.h
 
 |2.0                                                 |2.1.1                                                       | |

@@ -53,13 +53,14 @@ jobs:
 
         # ---------------------------------------------------------------------------
 
-        # git clone https://github.com/CoolZeroNL/Marlin.git
-        # BOARD='mega2560ext'             # mega2560 /  
-        # USE_BRANCH='fix-temp_sensor'
-        # USE_CONFIG_VERSION='bugfix-2.1.x'
-        # function fix_old_stuff() {
-        #   return true
-        # }
+        git clone https://github.com/CoolZeroNL/Marlin.git
+        BOARD='mega2560ext'             # mega2560 /  
+        USE_BRANCH='fix-temp_sensor'
+        USE_CONFIG_VERSION='bugfix-2.1.x'
+        function fix_old_stuff() {
+          return true
+        }
+
         # ---------------------------------------------------------------------------
 
         # git clone https://github.com/MarlinFirmware/Marlin.git 
@@ -69,17 +70,19 @@ jobs:
         # function fix_old_stuff() {
         #   return true
         # }
+        
         # ---------------------------------------------------------------------------
 
-        git clone https://github.com/MarlinFirmware/Marlin.git 
-        BOARD='mega2560'
-        USE_TAG='2.0.5'
-        USE_CONFIG_VERSION='2.0.5'
+        # git clone https://github.com/MarlinFirmware/Marlin.git 
+        # BOARD='mega2560'
+        # USE_TAG='2.0.5'
+        # USE_CONFIG_VERSION='2.0.5'
         
-        function fix_old_stuff() {
-          # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
-          sed -i '/https:\/\/github.com\/trinamic\/TMC26XStepper\/archive\/master.zip/d' platformio.ini
-        }
+        # function fix_old_stuff() {
+        #   # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
+        #   sed -i '/https:\/\/github.com\/trinamic\/TMC26XStepper\/archive\/master.zip/d' platformio.ini
+        # }
+
         # ---------------------------------------------------------------------------
 
         # Override MarlinFirmware version using branch or tag
