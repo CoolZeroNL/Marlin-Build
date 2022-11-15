@@ -670,9 +670,12 @@
     #define DEFAULT_Ki_LIST {   0.41,   0.41 }
     #define DEFAULT_Kd_LIST {  50.98,  50.98 }
   #else
-    #define DEFAULT_Kp   9.12
-    #define DEFAULT_Ki   0.41
-    #define DEFAULT_Kd  50.98
+    // #define DEFAULT_Kp   9.12
+    // #define DEFAULT_Ki   0.41
+    // #define DEFAULT_Kd  50.98
+    #define DEFAULT_Kp 19.74
+    #define DEFAULT_Ki 0.99
+    #define DEFAULT_Kd 99.25
   #endif
 #endif
 
@@ -754,9 +757,13 @@
   //#define PID_BED_DEBUG // Print Bed PID debug data to the serial port.
 
   // Duplicator 6
-  #define DEFAULT_bedKp 124.55
-  #define DEFAULT_bedKi 23.46
-  #define DEFAULT_bedKd 165.29
+  // #define DEFAULT_bedKp 124.55
+  // #define DEFAULT_bedKi 23.46
+  // #define DEFAULT_bedKd 165.29
+
+  #define DEFAULT_bedKp 30.02
+  #define DEFAULT_bedKi 5.16
+  #define DEFAULT_bedKd 116.41
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -1172,7 +1179,8 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.0395, 80.0395, 400.48, 99.1 }
+// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.0395, 80.0395, 400.48, 99.1 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.0395, 80.0395, 400.48, 104.40 }
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)

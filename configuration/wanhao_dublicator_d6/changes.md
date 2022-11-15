@@ -3,8 +3,6 @@
 |2.0                                                        |2.1.1                                                       | |
 |-----------------------------------------------------------|------------------------------------------------------------|-|
 |                                                           | #define SWITCHING_NOZZLE_SERVO_DWELL 2500                  | // Dwell time to wait for servo to make physical move
-| #define DEFAULT_MAX_FEEDRATE       { 250, 250, 5, 25 }    | #define DEFAULT_MAX_FEEDRATE      { 300, 300, 5, 25 }      | 
-| #define DEFAULT_MAX_ACCELERATION   { 750, 750, 100, 500 } | #define DEFAULT_MAX_ACCELERATION  { 3000, 3000, 100, 500 } | 
 | #define DEFAULT_EJERK    5.0                              | #define DEFAULT_EJERK    1.0                               | // May be used by Linear Advance
 | #define S_CURVE_ACCELERATION                              | //#define S_CURVE_ACCELERATION                             | // This option eliminates vibration during printing by fitting a Bézier curve to move acceleration, producing much smoother direction changes.
 | #define LEVEL_BED_CORNERS                                 | //#define LEVEL_BED_CORNER                                 | // Add a menu item to move between bed corners for manual bed adjustment
@@ -13,10 +11,14 @@
  
 
 ## Tuning
-|-----------------------------------------------------------|------------------------------------------------------------|-|
-| #define DEFAULT_ACCELERATION          800                 | #define DEFAULT_ACCELERATION                  1000  (1500)       | // X, Y, Z ... and E acceleration for printing moves
-| #define DEFAULT_RETRACT_ACCELERATION  500                 | #define DEFAULT_RETRACT_ACCELERATION          800   (1500)       | // E acceleration for retracts
-| #define DEFAULT_TRAVEL_ACCELERATION   1000                | #define DEFAULT_TRAVEL_ACCELERATION           1500  (3000)       | // X, Y, Z ... acceleration for travel (non printing) moves
+|2.0                                                                       |2.1.1                                                                         | old 2.1.1 value |
+|--------------------------------------------------------------------------|------------------------------------------------------------------------------|-----------------|-|
+| #define DEFAULT_MAX_FEEDRATE          { 250, 250, 5, 25 }                | #define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }                    |                 |
+| #define DEFAULT_MAX_ACCELERATION      { 750, 750, 100, 500 }             | #define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 500 }               |                 |// X, Y, Z, E0 ... Maximum start speed for accelerated moves
+| #define DEFAULT_ACCELERATION          800                                | #define DEFAULT_ACCELERATION          1000                                   | 1500            |// X, Y, Z ... and E acceleration for printing moves
+| #define DEFAULT_RETRACT_ACCELERATION  500                                | #define DEFAULT_RETRACT_ACCELERATION  800                                    | 1500            |// E acceleration for retracts
+| #define DEFAULT_TRAVEL_ACCELERATION   1000                               | #define DEFAULT_TRAVEL_ACCELERATION   1500                                   | 3000            |// X, Y, Z ... acceleration for travel (non printing) moves
+| #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.0395, 80.0395, 400.48, 99.1 } | #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.0395, 80.0395, 400.48, 104.31579 }     |                 |
 
 
 # Configuration_adv.h
@@ -40,3 +42,33 @@
     prepare for PLA...
 
     menu shows only one..
+
+
+# Calubration:
+https://teachingtechyt.github.io/calibration.html#esteps
+
+## Extruder E-steps Calibration:
+
+    M92: X80.04 Y80.04 Z400.48 E99.10
+    
+    New: E = 104.31579
+
+## PID
+
+    ; Hotend PID:
+    M301 P9.12 I0.41 D50.98
+
+    New:
+
+        READ: #define DEFAULT_Kp 19.09
+        READ: #define DEFAULT_Ki 0.92
+        READ: #define DEFAULT_Kd 99.38
+
+    ; Bed PID:
+    M304 P124.55 I23.46 D165.29
+
+    New:
+    
+        #define DEFAULT_bedKp 30.02
+        #define DEFAULT_bedKi 5.16
+        #define DEFAULT_bedKd 116.41
