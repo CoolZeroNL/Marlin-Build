@@ -4,18 +4,7 @@ echo ""
 
 # ---------------------------------------------------------------------------
 
-# git clone https://github.com/CoolZeroNL/Marlin.git
-# BOARD='mega2560ext'             # mega2560 /  
-# USE_BRANCH='fix-temp_sensor'
-# USE_CONFIG_VERSION='bugfix-2.1.x'
-# function fix_old_stuff() {
-#   return
-# }
-
-# ---------------------------------------------------------------------------
-
 git clone https://github.com/MarlinFirmware/Marlin.git  
-BOARD='mega2560ext'
 USE_BRANCH='bugfix-2.1.x'
 USE_CONFIG_VERSION='bugfix-2.1.x'
 function fix_old_stuff() {
@@ -25,7 +14,6 @@ function fix_old_stuff() {
 # ---------------------------------------------------------------------------
 
 # git clone https://github.com/MarlinFirmware/Marlin.git 
-# BOARD='mega2560'
 # USE_TAG='2.0.5'
 # USE_CONFIG_VERSION='2.0.5'
 
@@ -88,11 +76,17 @@ fi
 shopt -s dotglob
 find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
+    # Get name of machine
     machinename=`echo "$machine" | cut -d'/' -f 3`
     echo "Getting Configuration for: $machinename"
 
-    ls -A1 $machine/board*
-
+    # Find what board to build for
+    BOARD=`ls -A1 $machine/board* | awk -F'=' '{print $2}'`
+    echo "Getting Board Setting: $BOARD"
+    if [[ -z "$BOARD" ]]; then
+        echo "No board is found"
+        exit 1
+    fi
 
     # Copy custom Configuration files to Marlin folder
     cp $machine/${USE_CONFIG_VERSION}/*.h ./Marlin/Marlin/
