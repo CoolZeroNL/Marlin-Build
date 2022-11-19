@@ -35,13 +35,13 @@
 | #define BABYSTEP_MULTIPLICATOR_Z  5                | #define BABYSTEP_MULTIPLICATOR_Z  1                        | // (steps or mm) Steps or millimeter distance for each Z babystep
 | #define MOVE_Z_WHEN_IDLE                           | //#define MOVE_Z_WHEN_IDLE                                 | // Jump to the move Z menu on doubleclick when printer is idle.
 | #define EMERGENCY_PARSER                           | //#define EMERGENCY_PARSER                                 | // Add a low-level parser to intercept certain commands as they * enter the serial receive buffer, so they cannot be blocked. * Currently handles M108, M112, M410, M876
-| //#define HOST_ACTION_COMMANDS                     | #define HOST_ACTION_COMMANDS                             | // Host Prompt Support enables Marlin to use the host for user prompts so filament runout and other processes can be managed from the host side.
+| //#define HOST_ACTION_COMMANDS                     | #define HOST_ACTION_COMMANDS                               | // Host Prompt Support enables Marlin to use the host for user prompts so filament runout and other processes can be managed from the host side.
 
-# look into custom menu that was in 2.0, but not in 2.1.1 
-    prepare for ABS
-    prepare for PLA...
 
-    menu shows only one..
+# Not working:
+
+    - Stop print trough menu, when print is started from simplyfy3d (HOST_ACTION_COMMANDS is enabled)
+    - Custom menu label 1 not working, shows only pla
 
 
 # Calubration:
