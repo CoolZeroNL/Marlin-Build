@@ -91,7 +91,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
     machinename=`echo "$machine" | cut -d'/' -f 3`
     echo "Getting Configuration for: $machinename"
 
-    ls -A1 board*
+    ls -A1 $machine/board*
 
 
     # Copy custom Configuration files to Marlin folder
