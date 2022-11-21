@@ -71,10 +71,9 @@ jobs:
 
   publish:
     name: publish
-    needs: build_and_push
+    needs: create_release
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
 
