@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+      upload_id: ${{ steps.create_release.outputs.id }}
     steps:
       - name: Create release
         id: create_release
@@ -28,7 +29,7 @@ jobs:
 
   build_and_push:
     name: Build Marlin
-
+    needs: create_release
     runs-on: ubuntu-latest
 
     steps:
@@ -53,6 +54,8 @@ jobs:
         bash .github/workflows/build.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        UPLOAD_URL: ${{ needs.create_release.outputs.upload_url }}
+        UPLOAD_ID: ${{ needs.create_release.outputs.upload_id }}
 
     - name: Push firmware
       run: |

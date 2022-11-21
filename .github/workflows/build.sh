@@ -125,18 +125,23 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         echo "https://github.com/MarlinFirmware/Marlin/tree/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
 
         function upload_assest(){
-            echo "Upload Assests"
-            echo $GITHUB_TOKEN
+
+            # local _ASSET_ID="$1"
+            # local _FILE="$2"
+            # local _LABEL="$3"
+
+            echo ""
+            echo "$UPLOAD_ID"
+            echo "$UPLOAD_URL"
 
             # curl \
             #     -X PATCH \
             #     -H "Accept: application/vnd.github+json" \
-            #     -H "Authorization: Bearer <YOUR-TOKEN>" \
-            #     https://api.github.com/repos/OWNER/REPO/releases/assets/ASSET_ID \
-            #     -d '{"name":"foo-1.0.0-osx.zip","label":"Mac binary"}'
+            #     -H "Authorization: Bearer $GITHUB_TOKEN" \
+            #     -d '{"name":"'$_FILE'","label":"'$_LABEL'"}' \
+            #     https://api.github.com/repos/OWNER/REPO/releases/assets/$_ASSET_ID
 
         }
-
 
         printf "\nValidating firmware checksum.."
         if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
