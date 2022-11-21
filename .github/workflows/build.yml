@@ -87,7 +87,7 @@ jobs:
                 assets+=("-a" "$asset")
             done
 
-            hub release create ${githubref##*/}-$machinename
+            hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
 
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"   # specify tag name not the github.ref here.
 
