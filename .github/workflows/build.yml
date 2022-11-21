@@ -84,15 +84,16 @@ jobs:
           function upload_assest(){
 
             local _PATH="$1"
+            local githubref=$GITHUB_ref   # get the github.ref value
 
-            hub release show ${github.ref##*/}
+            hub release show ${githubref##*/}
 
             # set -x
             assets=()
             for asset in $_PATH/*; do
                 assets+=("-a" "$asset")
             done
-            githubref=$GITHUB_ref   # get the github.ref value
+
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"   # specify tag name not the github.ref here.
 
           }
@@ -107,3 +108,5 @@ jobs:
               upload_assest $machine
 
           done
+      env:
+        GITHUB_ref: ${{ github.ref }}
