@@ -89,7 +89,7 @@ jobs:
 
             hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
 
-            hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"   # specify tag name not the github.ref here.
+            hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}-$machinename"   # specify tag name not the github.ref here.
 
           }
 
