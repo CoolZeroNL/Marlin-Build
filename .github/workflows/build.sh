@@ -129,12 +129,20 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             local _FILE="$1"
             local _LABEL="$2"
 
-            curl \
-                -X PATCH \
-                -H "Accept: application/vnd.github+json" \
-                -H "Authorization: Bearer $GITHUB_TOKEN" \
-                -d '{"name":"'$_FILE'","label":"'$_LABEL'"}' \
-                https://api.github.com/repos/CoolZeroNL/Marlin-Build/releases/assets/$UPLOAD_ID
+            # echo curl \
+            #     -X PATCH \
+            #     -H "Accept: application/vnd.github+json" \
+            #     -H "Authorization: Bearer $GITHUB_TOKEN" \
+            #     -d '{"name":"'$_FILE'","label":"'$_LABEL'"}' \
+            #     https://api.github.com/repos/CoolZeroNL/Marlin-Build/releases/assets/$UPLOAD_ID
+
+                set -x
+                assets=()
+                for asset in $OUTPUT_DIR/*; do
+                    assets+=("-a" "$asset")
+                done
+                githubref=${{ github.ref }}   # get the github.ref value
+                hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"   # specify tag name not the github.ref here.
 
         }
 
