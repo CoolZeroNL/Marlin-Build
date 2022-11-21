@@ -56,6 +56,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         UPLOAD_URL: ${{ needs.create_release.outputs.upload_url }}
         UPLOAD_ID: ${{ needs.create_release.outputs.upload_id }}
+        GITHUB_ref: ${{ github.ref }}
 
 
     # need to be pushed to the new created tag

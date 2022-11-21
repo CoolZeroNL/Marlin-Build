@@ -141,8 +141,8 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 for asset in $OUTPUT_DIR/*; do
                     assets+=("-a" "$asset")
                 done
-                githubref=${{ github.ref }}   # get the github.ref value
-                hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"   # specify tag name not the github.ref here.
+                githubref=$GITHUB_ref   # get the github.ref value
+                hub release edit "${assets[@]}" -m "${GITHUB_ref##*/}" "${GITHUB_ref##*/}"   # specify tag name not the github.ref here.
 
         }
 
