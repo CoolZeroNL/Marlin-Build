@@ -74,6 +74,8 @@ jobs:
         with:
           name: Release ${{ github.ref_name }}
           allowUpdates: true
+          tag: ${{ github.ref_name }}
+          commit: "Create Release"
           # artifacts: "release.tar.gz,foo/*.txt"
           # bodyFile: "body.md"
 
