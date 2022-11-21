@@ -76,6 +76,7 @@ jobs:
           allowUpdates: true
           tag: ${{ github.ref_name }}
           commit: main
+          replacesArtifacts: true
           # artifacts: "release.tar.gz,foo/*.txt"
           # bodyFile: "body.md"
 
@@ -94,6 +95,9 @@ jobs:
 
           githubref=$GITHUB_ref
           echo "$githubref"
+
+          # login to hub
+          hub release
 
           function upload_assest(){
 
@@ -120,4 +124,4 @@ jobs:
 
           done
         env:
-          GITHUB_ref: ${{ github.ref }}          
+          GITHUB_ref: ${{ github.ref }}
