@@ -126,20 +126,15 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
         function upload_assest(){
 
-            # local _ASSET_ID="$1"
-            # local _FILE="$2"
-            # local _LABEL="$3"
+            local _FILE="$1"
+            local _LABEL="$2"
 
-            echo ""
-            echo "$UPLOAD_ID"
-            echo "$UPLOAD_URL"
-
-            # curl \
-            #     -X PATCH \
-            #     -H "Accept: application/vnd.github+json" \
-            #     -H "Authorization: Bearer $GITHUB_TOKEN" \
-            #     -d '{"name":"'$_FILE'","label":"'$_LABEL'"}' \
-            #     https://api.github.com/repos/OWNER/REPO/releases/assets/$_ASSET_ID
+            curl \
+                -X PATCH \
+                -H "Accept: application/vnd.github+json" \
+                -H "Authorization: Bearer $GITHUB_TOKEN" \
+                -d '{"name":"'$_FILE'","label":"'$_LABEL'"}' \
+                https://api.github.com/repos/OWNER/REPO/releases/assets/$UPLOAD_ID
 
         }
 
@@ -156,7 +151,11 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             echo "        '##'"
             echo ""
 
-            upload_assest
+            upload_assest $OUTPUT_DIR/${export_filename}.md5
+            upload_assest $OUTPUT_DIR/${export_filename}.md
+            upload_assest $OUTPUT_DIR/${export_filename}.hex
+            upload_assest $OUTPUT_DIR/${export_filename}.bin
+
         else
             printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
             printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
