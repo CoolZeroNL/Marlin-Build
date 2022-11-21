@@ -74,19 +74,20 @@ jobs:
     needs: build_and_push
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Create release
         run: |
           echo ""
-          echo "${{ github.ref }}"
+
+          githubref=$GITHUB_ref   # get the github.ref value
+          echo "$githubref"
+
           function upload_assest(){
 
             local _PATH="$1"
-            local githubref=$GITHUB_ref   # get the github.ref value
-
-            hub release show ${githubref##*/}
 
             # set -x
             assets=()
