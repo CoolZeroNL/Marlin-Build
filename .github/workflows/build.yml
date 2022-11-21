@@ -96,9 +96,6 @@ jobs:
           githubref=$GITHUB_ref
           echo "$githubref"
 
-          # login to hub
-          hub release
-
           function upload_assest(){
 
             local _PATH="$1"
@@ -125,3 +122,4 @@ jobs:
           done
         env:
           GITHUB_ref: ${{ github.ref }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
