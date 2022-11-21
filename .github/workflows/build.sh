@@ -124,27 +124,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
         echo "https://github.com/MarlinFirmware/Marlin/tree/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
 
-        function upload_assest(){
 
-            local _FILE="$1"
-            local _LABEL="$2"
-
-            # echo curl \
-            #     -X PATCH \
-            #     -H "Accept: application/vnd.github+json" \
-            #     -H "Authorization: Bearer $GITHUB_TOKEN" \
-            #     -d '{"name":"'$_FILE'","label":"'$_LABEL'"}' \
-            #     https://api.github.com/repos/CoolZeroNL/Marlin-Build/releases/assets/$UPLOAD_ID
-
-                set -x
-                assets=()
-                for asset in $OUTPUT_DIR/*; do
-                    assets+=("-a" "$asset")
-                done
-                githubref=$GITHUB_ref   # get the github.ref value
-                hub release edit "${assets[@]}" -m "${GITHUB_ref##*/}" "${GITHUB_ref##*/}"   # specify tag name not the github.ref here.
-
-        }
 
         printf "\nValidating firmware checksum.."
         if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
@@ -158,11 +138,6 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             echo "   \/\  ####  /\/"
             echo "        '##'"
             echo ""
-
-            upload_assest $OUTPUT_DIR/${export_filename}.md5
-            upload_assest $OUTPUT_DIR/${export_filename}.md
-            upload_assest $OUTPUT_DIR/${export_filename}.hex
-            upload_assest $OUTPUT_DIR/${export_filename}.bin
 
         else
             printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"

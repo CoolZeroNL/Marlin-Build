@@ -11,27 +11,9 @@ jobs:
 
 # https://github.com/actions/create-release/issues/14
 
-  create_release:
-    name: Create release
-    runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-      upload_id: ${{ steps.create_release.outputs.id }}
-    steps:
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          # tag_name: ${{ github.ref }}
-          tag_name: ${{ github.ref_name }}
-          # release_name: Release ${{ github.ref }}
-          release_name: Release ${{ github.ref_name }}
-
   build_and_push:
     name: Build Marlin
-    needs: create_release
+    # needs: create_release
     runs-on: ubuntu-latest
 
     steps:
@@ -54,19 +36,71 @@ jobs:
     - name: Build
       run: |
         bash .github/workflows/build.sh
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        UPLOAD_URL: ${{ needs.create_release.outputs.upload_url }}
-        UPLOAD_ID: ${{ needs.create_release.outputs.upload_id }}
-        GITHUB_ref: ${{ github.ref }}
+      # env:
+        # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # UPLOAD_URL: ${{ needs.create_release.outputs.upload_url }}
+        # UPLOAD_ID: ${{ needs.create_release.outputs.upload_id }}
+        # GITHUB_ref: ${{ github.ref }}
 
+    - name: Push firmware
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Compiled firmware"
+        git push
 
-    # need to be pushed to the new created tag
+  create_release:
+    name: Create release
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      upload_id: ${{ steps.create_release.outputs.id }}
+    steps:
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # tag_name: ${{ github.ref }}
+          tag_name: ${{ github.ref_name }}
+          # release_name: Release ${{ github.ref }}
+          release_name: Release ${{ github.ref_name }}
 
-    # - name: Push firmware
-    #   run: |
-    #     git config user.name github-actions
-    #     git config user.email github-actions@github.com
-    #     git add .
-    #     git commit -m "Compiled firmware"
-    #     git push
+  publish:
+    name: publish
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create release
+        run: |
+          echo ""
+          echo "${{ github.ref }}"
+          function upload_assest(){
+
+            local _PATH="$1"
+
+            hub release show ${github.ref##*/}
+
+            # set -x
+            assets=()
+            for asset in $_PATH/*; do
+                assets+=("-a" "$asset")
+            done
+            githubref=$GITHUB_ref   # get the github.ref value
+            hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"   # specify tag name not the github.ref here.
+
+          }
+
+          find ./configuration/* -prune -type d | while IFS= read -r machine; do
+
+            # Get name of machine
+            machinename=`echo "$machine" | cut -d'/' -f 3`
+            echo "Getting Configuration for: $machinename"
+
+              echo $machine
+              upload_assest $machine
+
+          done
