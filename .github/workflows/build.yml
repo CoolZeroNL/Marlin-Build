@@ -80,19 +80,20 @@ jobs:
       - name: Create release
         run: |
           echo ""
-          echo "${{ github.ref }}"
+
+          githubref=$GITHUB_ref
+          echo "$githubref"
+
           function upload_assest(){
 
             local _PATH="$1"
-
-            hub release show ${github.ref##*/}
 
             # set -x
             assets=()
             for asset in $_PATH/*; do
                 assets+=("-a" "$asset")
             done
-            githubref=$GITHUB_ref   # get the github.ref value
+
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"   # specify tag name not the github.ref here.
 
           }
