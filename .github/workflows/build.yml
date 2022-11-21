@@ -87,6 +87,8 @@ jobs:
                 assets+=("-a" "$asset")
             done
 
+            hub release -f "%T (%S) %n" --include-drafts | grep "${githubref##*/}-$machinename" | awk '{print $1}' | xargs -t -n1 hub release delete
+
             hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
 
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}-$machinename"   # specify tag name not the github.ref here.
