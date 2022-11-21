@@ -13,7 +13,6 @@ jobs:
 
   build_and_push:
     name: Build Marlin
-    # needs: create_release
     runs-on: ubuntu-latest
 
     steps:
@@ -36,11 +35,6 @@ jobs:
     - name: Build
       run: |
         bash .github/workflows/build.sh
-      # env:
-        # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # UPLOAD_URL: ${{ needs.create_release.outputs.upload_url }}
-        # UPLOAD_ID: ${{ needs.create_release.outputs.upload_id }}
-        # GITHUB_ref: ${{ github.ref }}
 
     - name: Push firmware
       run: |
@@ -50,36 +44,22 @@ jobs:
         git commit -m "Compiled firmware"
         git push
 
-  create_release:
-    name: Create release
-    needs: build_and_push
-    runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-      upload_id: ${{ steps.create_release.outputs.id }}
-    steps:
-      # - name: Create release
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     # tag_name: ${{ github.ref }}
-      #     tag_name: ${{ github.ref_name }}
-      #     # release_name: Release ${{ github.ref }}
-      #     release_name: Release ${{ github.ref_name }}
-
-      - name: Create release
-        uses: ncipollo/release-action@v1
-        with:
-          name: Release ${{ github.ref_name }}
-          allowUpdates: true
-          tag: ${{ github.ref_name }}
-          commit: main
-          replacesArtifacts: true
-          # artifacts: "release.tar.gz,foo/*.txt"
-          # bodyFile: "body.md"
-
+  # create_release:
+  #   name: Create release
+  #   needs: build_and_push
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #     upload_id: ${{ steps.create_release.outputs.id }}
+  #   steps:
+  #     - name: Create release
+  #       uses: ncipollo/release-action@v1
+  #       with:
+  #         name: Release ${{ github.ref_name }}
+  #         allowUpdates: true
+  #         tag: ${{ github.ref_name }}
+  #         commit: main
+  #         replacesArtifacts: true
 
   publish:
     name: publish
@@ -94,17 +74,20 @@ jobs:
           echo ""
 
           githubref=$GITHUB_ref
-          echo "$githubref"
+          echo "$githubref" 
 
           function upload_assest(){
 
             local _PATH="$1"
+            local machinename=`echo "$_PATH" | cut -d'/' -f 3`
 
             # set -x
             assets=()
             for asset in $_PATH/*/*; do
                 assets+=("-a" "$asset")
             done
+
+            hub release create ${githubref##*/}-$machinename
 
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"   # specify tag name not the github.ref here.
 
@@ -124,3 +107,14 @@ jobs:
           GITHUB_ref: ${{ github.ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+
+
+
+#  releases
+
+    # machine - 2.0.5
+      # files
+
+    # machine - bugfix-2.1.x
+
+      # files
