@@ -134,7 +134,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 -H "Accept: application/vnd.github+json" \
                 -H "Authorization: Bearer $GITHUB_TOKEN" \
                 -d '{"name":"'$_FILE'","label":"'$_LABEL'"}' \
-                https://api.github.com/repos/OWNER/REPO/releases/assets/$UPLOAD_ID
+                https://api.github.com/repos/CoolZeroNL/Marlin-Build/releases/assets/$UPLOAD_ID
 
         }
 

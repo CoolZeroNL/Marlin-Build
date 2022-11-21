@@ -57,10 +57,13 @@ jobs:
         UPLOAD_URL: ${{ needs.create_release.outputs.upload_url }}
         UPLOAD_ID: ${{ needs.create_release.outputs.upload_id }}
 
-    - name: Push firmware
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add .
-        git commit -m "Compiled firmware"
-        git push
+
+    # need to be pushed to the new created tag
+
+    # - name: Push firmware
+    #   run: |
+    #     git config user.name github-actions
+    #     git config user.email github-actions@github.com
+    #     git add .
+    #     git commit -m "Compiled firmware"
+    #     git push
