@@ -74,12 +74,12 @@ jobs:
     needs: create_release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Create release
         run: |
           echo ""
+
+          ls -la 
+          pwd
 
           githubref=$GITHUB_ref   # get the github.ref value
           echo "$githubref"
