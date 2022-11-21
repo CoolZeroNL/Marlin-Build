@@ -74,6 +74,9 @@ jobs:
     needs: build_and_push
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Create release
         run: |
           echo ""
@@ -94,7 +97,7 @@ jobs:
 
           }
 
-          find ./configuration/* -prune -type d | while IFS= read -r machine; do
+          find ./compiled/* -prune -type d | while IFS= read -r machine; do
 
             # Get name of machine
             machinename=`echo "$machine" | cut -d'/' -f 3`
