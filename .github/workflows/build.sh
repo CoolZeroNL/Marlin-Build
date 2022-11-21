@@ -70,7 +70,7 @@ if [ $CONFIG_CHECK = 0 ]
 then
     printf "\n\e[1;31mNo custom Configuration files detected! \e[0maborting..\n"
     exit 1
-fi        
+fi
 
 # for each machine in Configuration folder:
 shopt -s dotglob
@@ -121,8 +121,22 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/${export_filename}.$FW_EXTENSION
 
         md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
-        
+
         echo "https://github.com/MarlinFirmware/Marlin/tree/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
+
+        function upload_assest(){
+            echo "Upload Assests"
+            echo $GITHUB_TOKEN
+
+            # curl \
+            #     -X PATCH \
+            #     -H "Accept: application/vnd.github+json" \
+            #     -H "Authorization: Bearer <YOUR-TOKEN>" \
+            #     https://api.github.com/repos/OWNER/REPO/releases/assets/ASSET_ID \
+            #     -d '{"name":"foo-1.0.0-osx.zip","label":"Mac binary"}'
+
+        }
+
 
         printf "\nValidating firmware checksum.."
         if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
@@ -136,6 +150,8 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             echo "   \/\  ####  /\/"
             echo "        '##'"
             echo ""
+
+            upload_assest
         else
             printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
             printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
@@ -148,7 +164,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         fi
 
         cd ../../../../
-        
+
     else
         printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
         exit 1
