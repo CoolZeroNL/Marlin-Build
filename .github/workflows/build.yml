@@ -20,46 +20,46 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    # - name: Select Python 3.7
-    #   uses: actions/setup-python@v3
-    #   with:
-    #     python-version: '3.7'     # Version range or exact version of a Python version to use, using semvers version range syntax.
-    #     architecture: 'x64'       # optional x64 or x86. Defaults to x64 if not specified 
+    - name: Select Python 3.7
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.7'     # Version range or exact version of a Python version to use, using semvers version range syntax.
+        architecture: 'x64'       # optional x64 or x86. Defaults to x64 if not specified 
 
-    # - name: Install PlatformIO
-    #   run: |
-    #     pip install -U platformio
-    #     pio upgrade --dev
-    #     pio pkg update --global
+    - name: Install PlatformIO
+      run: |
+        pip install -U platformio
+        pio upgrade --dev
+        pio pkg update --global
 
-    # - name: Build
-    #   run: |
-    #     bash .github/workflows/build.sh
+    - name: Build
+      run: |
+        bash .github/workflows/build.sh
 
-    # - name: Push firmware
-    #   run: |
-    #     git config user.name github-actions
-    #     git config user.email github-actions@github.com
-    #     git add .
-    #     git commit -m "Compiled firmware"
-    #     git push
+    - name: Push firmware
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Compiled firmware"
+        git push
 
-  # create_release:
-  #   name: Create release
-  #   needs: build_and_push
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-  #     upload_id: ${{ steps.create_release.outputs.id }}
-  #   steps:
-  #     - name: Create release
-  #       uses: ncipollo/release-action@v1
-  #       with:
-  #         name: Release ${{ github.ref_name }}
-  #         allowUpdates: true
-  #         tag: ${{ github.ref_name }}
-  #         commit: main
-  #         replacesArtifacts: true
+  create_release:
+    name: Create release
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      upload_id: ${{ steps.create_release.outputs.id }}
+    steps:
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          name: Release ${{ github.ref_name }}
+          allowUpdates: true
+          tag: ${{ github.ref_name }}
+          commit: main
+          replacesArtifacts: true
 
   publish:
     name: publish
@@ -98,27 +98,19 @@ jobs:
             if [[ ! -z "$get_release" ]]; then
               hub release delete "$get_release"
             fi
-            #  | xargs -t -n1 hub release delete
 
             get_tags=`git ls-remote --tags origin | grep "${githubref##*/}-$machinename"  | cut -d'/' -f3`
             echo "$get_tags"
             if [[ ! -z "$get_tags" ]]; then
               git push --delete origin main-wanhao_dublicator_4s
             fi
-            #  |  xargs -t -n1 git push --delete origin
-
-            echo "Show"
-            hub release -f "%T (%S) %n" --include-drafts
-            git ls-remote --tags origin
 
             echo "Create"
             hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
-            sleep 60
-            
-            echo "Show"
-            hub release -f "%T (%S) %n" --include-drafts
-            git ls-remote --tags origin
-            
+
+            # to quick to direct upload assiats to release, it need to some time
+            sleep 10
+
             echo "Upload assets"
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}-$machinename"   # specify tag name not the github.ref here.
 
