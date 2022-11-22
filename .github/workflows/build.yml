@@ -103,7 +103,8 @@ jobs:
             get_tags=`git ls-remote --tags origin | grep "${githubref##*/}-$machinename"`
             echo "$get_tags"
             if [[ ! -z "$get_tags" ]]; then
-              git push --delete origin "$get_tags"
+              # git push --delete origin 
+              git push origin :$get_tags
             fi
             #  |  xargs -t -n1 git push --delete origin
 
