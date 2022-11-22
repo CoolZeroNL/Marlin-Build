@@ -93,8 +93,18 @@ jobs:
             echo "Delete"
             hub release -f "%T (%S) %n" --include-drafts | grep "${githubref##*/}-$machinename" | awk '{print $1}' | xargs -t -n1 hub release delete
 
+            echo "Show"
+            hub release -f "%T (%S) %n" --include-drafts
+
+            sleep 120
+
             echo "Create"
             hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
+
+            sleep 120
+            
+            echo "Show"
+            hub release -f "%T (%S) %n" --include-drafts
 
             echo "Upload assets"
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}-$machinename"   # specify tag name not the github.ref here.
