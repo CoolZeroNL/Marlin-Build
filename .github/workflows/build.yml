@@ -89,22 +89,30 @@ jobs:
 
             echo "Show"
             hub release -f "%T (%S) %n" --include-drafts
+            git ls-remote --tags origin
 
             echo "Delete"
-            hub release -f "%T (%S) %n" --include-drafts | grep "${githubref##*/}-$machinename" | awk '{print $1}' | xargs -t -n1 hub release delete
+
+            get_release=`hub release -f "%T (%S) %n" --include-drafts | grep "${githubref##*/}-$machinename" | awk '{print $1}'`
+            echo "$get_release"
+            if [[ ! -z "$get_release" ]]; then
+              hub release delete "$get_release"
+            fi
+            #  | xargs -t -n1 hub release delete
+
+            get_tags=`git ls-remote --tags origin | grep "${githubref##*/}-$machinename"`
+            echo "$get_tags"
+            if [[ ! -z "$get_tags" ]]; then
+              git push --delete origin "$get_tags"
+            fi
+            #  |  xargs -t -n1 git push --delete origin
 
             echo "Show"
             hub release -f "%T (%S) %n" --include-drafts
-
-            sleep 120
+            git ls-remote --tags origin
 
             echo "Create"
             hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
-
-            sleep 120
-
-            echo "Show"
-            hub release -f "%T (%S) %n" --include-drafts
 
             echo "Upload assets"
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}-$machinename"   # specify tag name not the github.ref here.
