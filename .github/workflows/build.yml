@@ -102,7 +102,7 @@ jobs:
             hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
 
             sleep 120
-            
+
             echo "Show"
             hub release -f "%T (%S) %n" --include-drafts
 
