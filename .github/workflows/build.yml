@@ -113,7 +113,12 @@ jobs:
 
             echo "Create"
             hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
-
+            sleep 60
+            
+            echo "Show"
+            hub release -f "%T (%S) %n" --include-drafts
+            git ls-remote --tags origin
+            
             echo "Upload assets"
             hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}-$machinename"   # specify tag name not the github.ref here.
 
