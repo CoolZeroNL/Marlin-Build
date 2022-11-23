@@ -80,8 +80,7 @@ fi
 CONFIG_CHECK=$(ls -1 ./configuration/*/*/*.h 2>/dev/null | wc -l)
 if [ $CONFIG_CHECK = 0 ]
 then
-    printf "\n\e[1;31mNo custom Configuration files detected! \e[0maborting..\n"
-    exit 1
+    printf "\n\e[1;31mNo custom Configuration files detected! \e[0mUsing default from Marlin folder..\n"
 fi
 
 # for each machine in Configuration folder:
