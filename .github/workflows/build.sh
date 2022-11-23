@@ -4,16 +4,28 @@ echo ""
 
 # ---------------------------------------------------------------------------
 
-git clone https://github.com/MarlinFirmware/Marlin.git  
-USE_BRANCH='bugfix-2.1.x'
-USE_CONFIG_VERSION='bugfix-2.1.x'
+git clone https://github.com/andrivet/ADVi3pp.git
+REPO_NAME='ADVi3pp'
+USE_BRANCH='advi3++'
+USE_CONFIG_VERSION='advi3-2.1.x'
 function fix_old_stuff() {
     return
 }
 
 # ---------------------------------------------------------------------------
 
+# git clone https://github.com/MarlinFirmware/Marlin.git  
+# REPO_NAME='Marlin'
+# USE_BRANCH='bugfix-2.1.x'
+# USE_CONFIG_VERSION='bugfix-2.1.x'
+# function fix_old_stuff() {
+#     return
+# }
+
+# ---------------------------------------------------------------------------
+
 # git clone https://github.com/MarlinFirmware/Marlin.git 
+# REPO_NAME='Marlin'
 # USE_TAG='2.0.5'
 # USE_CONFIG_VERSION='2.0.5'
 
@@ -28,7 +40,7 @@ function fix_old_stuff() {
 if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
 
     printf "\n\e[01;36mUse Latest\e[0m\n"
-    cd Marlin/
+    cd ${REPO_NAME}/
     git fetch origin
     git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
     printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
@@ -38,7 +50,7 @@ if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; t
 elif [[ $USE_TAG ]]; then
 
     printf "\n\e[01;36mUse TAG\e[0m\n"
-    cd Marlin/
+    cd ${REPO_NAME}/
     git fetch origin
     git checkout $USE_TAG
     printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
@@ -49,7 +61,7 @@ elif [[ $USE_TAG ]]; then
 elif [[ $USE_BRANCH ]]; then
 
     printf "\n\e[01;36mUse Branch\e[0m\n"
-    cd Marlin/
+    cd ${REPO_NAME}/
     git fetch origin
     git checkout $USE_BRANCH
     printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
@@ -89,14 +101,14 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
     fi
 
     # Copy custom Configuration files to Marlin folder
-    cp $machine/${USE_CONFIG_VERSION}/*.h ./Marlin/Marlin/
+    cp $machine/${USE_CONFIG_VERSION}/*.h ./${REPO_NAME}/Marlin/
 
     # Change the default board with value in environment variable
-    sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./Marlin/platformio.ini
+    sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./${REPO_NAME}/platformio.ini
 
     # Build Marlin firmware 
     printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
-    platformio run -d Marlin/
+    platformio run -d ${REPO_NAME}/
     success=$?
 
     FW_EXTENSION=hex
