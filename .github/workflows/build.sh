@@ -1,16 +1,14 @@
 echo ""
 
-# USE_LATEST_TAG=false            # true / false
-
 # ---------------------------------------------------------------------------
 
-git clone https://github.com/andrivet/ADVi3pp.git
-REPO_NAME='ADVi3pp'
-USE_BRANCH='advi3++'
-USE_CONFIG_VERSION='advi3-2.1.x'
-function fix_old_stuff() {
-    return
-}
+# git clone https://github.com/andrivet/ADVi3pp.git
+# REPO_NAME='ADVi3pp'
+# USE_BRANCH='advi3++'
+# USE_CONFIG_VERSION='advi3-2.1.x'
+# function fix_old_stuff() {
+#     return
+# }
 
 # ---------------------------------------------------------------------------
 
@@ -36,46 +34,6 @@ function fix_old_stuff() {
 
 # ---------------------------------------------------------------------------
 
-# Override MarlinFirmware version using branch or tag
-if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
-
-    printf "\n\e[01;36mUse Latest\e[0m\n"
-    cd ${REPO_NAME}/
-    git fetch origin
-    git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
-    printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
-    git_commit_hash=`git rev-parse --short HEAD`
-    cd ..
-
-elif [[ $USE_TAG ]]; then
-
-    printf "\n\e[01;36mUse TAG\e[0m\n"
-    cd ${REPO_NAME}/
-    git fetch origin
-    git checkout $USE_TAG
-    printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
-    git_commit_hash=`git rev-parse --short HEAD`
-    fix_old_stuff
-    cd ..
-
-elif [[ $USE_BRANCH ]]; then
-
-    printf "\n\e[01;36mUse Branch\e[0m\n"
-    cd ${REPO_NAME}/
-    git fetch origin
-    git checkout $USE_BRANCH
-    printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
-    git_commit_hash=`git rev-parse --short HEAD`
-    fix_old_stuff
-    cd ..
-
-else
-
-    echo "no option selected!"
-    exit 1
-
-fi
-
 # Check if custom configuration files exists within the docker container
 CONFIG_CHECK=$(ls -1 ./configuration/*/*/*.h 2>/dev/null | wc -l)
 if [ $CONFIG_CHECK = 0 ]
@@ -87,12 +45,62 @@ fi
 shopt -s dotglob
 find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
+    source $machinename/config
+
+    echo "$BOARD"
+    echo "$REPO_NAME"
+    echo "$USE_BRANCH"
+    echo "$USE_CONFIG_VERSION"
+    echo ""
+
+    git clone $REPO_NAME
+
     # Get name of machine
     machinename=`echo "$machine" | cut -d'/' -f 3`
     echo "Getting Configuration for: $machinename"
 
+    # Override MarlinFirmware version using branch or tag
+    if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
+
+        printf "\n\e[01;36mUse Latest\e[0m\n"
+        cd ${REPO_NAME}/
+        git fetch origin
+        git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+        printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+        git_commit_hash=`git rev-parse --short HEAD`
+        cd ..
+
+    elif [[ $USE_TAG ]]; then
+
+        printf "\n\e[01;36mUse TAG\e[0m\n"
+        cd ${REPO_NAME}/
+        git fetch origin
+        git checkout $USE_TAG
+        printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+        git_commit_hash=`git rev-parse --short HEAD`
+        fix_old_stuff
+        cd ..
+
+    elif [[ $USE_BRANCH ]]; then
+
+        printf "\n\e[01;36mUse Branch\e[0m\n"
+        cd ${REPO_NAME}/
+        git fetch origin
+        git checkout $USE_BRANCH
+        printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
+        git_commit_hash=`git rev-parse --short HEAD`
+        fix_old_stuff
+        cd ..
+
+    else
+
+        echo "no option selected!"
+        exit 1
+
+    fi
+
     # Find what board to build for
-    BOARD=`ls -A1 $machine/board* | awk -F'=' '{print $2}'`
+    # BOARD=`ls -A1 $machine/board* | awk -F'=' '{print $2}'`
     echo "Getting Board Setting: $BOARD"
     if [[ -z "$BOARD" ]]; then
         echo "No board is found"
