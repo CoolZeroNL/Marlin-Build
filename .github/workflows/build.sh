@@ -45,7 +45,7 @@ fi
 shopt -s dotglob
 find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
-    source $machinename/config
+    source $machine/config
 
     echo "$BOARD"
     echo "$REPO_NAME"
