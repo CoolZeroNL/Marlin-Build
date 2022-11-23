@@ -107,7 +107,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         exit 1
     fi
 
-    # Copy custom Configuration files to Marlin folder
+    # Copy custom Configuration files to Marlin folder 
     cp $machine/${USE_CONFIG_VERSION}/*.h ./${REPO_NAME}/Marlin/
 
     # Change the default board with value in environment variable
