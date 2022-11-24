@@ -99,7 +99,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
         export_filename="firmware_${USE_BRANCH}${USE_TAG}_${git_commit_hash}_${machinename}"
 
-        # convert elf -> BIN
+        # convert elf -> BIN 
         ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./${REPO_NAME}/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
 
         printf "\nCopying compiled firmware to output folder..\n"
