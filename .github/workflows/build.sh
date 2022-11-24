@@ -2,8 +2,6 @@ echo ""
 
 # ---------------------------------------------------------------------------
 
-
-
 # git clone https://github.com/andrivet/ADVi3pp.git
 # REPO_NAME='ADVi3pp'
 # USE_BRANCH='advi3++'
