@@ -102,7 +102,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
     fi
 
-    # Find what board to build for
+    # Find what board to build for 
     # BOARD=`ls -A1 $machine/board* | awk -F'=' '{print $2}'`
     echo "Getting Board Setting: $BOARD"
     if [[ -z "$BOARD" ]]; then
