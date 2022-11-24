@@ -44,88 +44,88 @@ jobs:
         git commit -m "Compiled firmware"
         git push
 
-  create_release:
-    name: Create release
-    needs: build_and_push
-    runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-      upload_id: ${{ steps.create_release.outputs.id }}
-    steps:
-      - name: Create release
-        uses: ncipollo/release-action@v1
-        with:
-          name: Release ${{ github.ref_name }}
-          allowUpdates: true
-          tag: ${{ github.ref_name }}
-          commit: main
-          replacesArtifacts: true
+  # create_release:
+  #   name: Create release
+  #   needs: build_and_push
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #     upload_id: ${{ steps.create_release.outputs.id }}
+  #   steps:
+  #     - name: Create release
+  #       uses: ncipollo/release-action@v1
+  #       with:
+  #         name: Release ${{ github.ref_name }}
+  #         allowUpdates: true
+  #         tag: ${{ github.ref_name }}
+  #         commit: main
+  #         replacesArtifacts: true
 
-  publish:
-    name: publish
-    needs: build_and_push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+  # publish:
+  #   name: publish
+  #   needs: build_and_push
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
 
-      - name: Create release
-        run: |
-          echo ""
+  #     - name: Create release
+  #       run: |
+  #         echo ""
 
-          githubref=$GITHUB_ref
-          echo "$githubref" 
+  #         githubref=$GITHUB_ref
+  #         echo "$githubref" 
 
-          function upload_assest(){
+  #         function upload_assest(){
 
-            local _PATH="$1"
-            local machinename=`echo "$_PATH" | cut -d'/' -f 3`
+  #           local _PATH="$1"
+  #           local machinename=`echo "$_PATH" | cut -d'/' -f 3`
 
-            # set -x
-            assets=()
-            for asset in $_PATH/*/*; do
-                assets+=("-a" "$asset")
-            done
+  #           # set -x
+  #           assets=()
+  #           for asset in $_PATH/*/*; do
+  #               assets+=("-a" "$asset")
+  #           done
 
-            echo "Show"
-            hub release -f "%T (%S) %n" --include-drafts
-            git ls-remote --tags origin
+  #           echo "Show"
+  #           hub release -f "%T (%S) %n" --include-drafts
+  #           git ls-remote --tags origin
 
-            echo "Delete"
+  #           echo "Delete"
 
-            get_release=`hub release -f "%T (%S) %n" --include-drafts | grep "${githubref##*/}-$machinename" | awk '{print $1}'`
-            echo "$get_release"
-            if [[ ! -z "$get_release" ]]; then
-              hub release delete "$get_release"
-            fi
+  #           get_release=`hub release -f "%T (%S) %n" --include-drafts | grep "${githubref##*/}-$machinename" | awk '{print $1}'`
+  #           echo "$get_release"
+  #           if [[ ! -z "$get_release" ]]; then
+  #             hub release delete "$get_release"
+  #           fi
 
-            get_tags=`git ls-remote --tags origin | grep "${githubref##*/}-$machinename"  | cut -d'/' -f3`
-            echo "$get_tags"
-            if [[ ! -z "$get_tags" ]]; then
-              git push --delete origin main-wanhao_dublicator_4s
-            fi
+  #           get_tags=`git ls-remote --tags origin | grep "${githubref##*/}-$machinename"  | cut -d'/' -f3`
+  #           echo "$get_tags"
+  #           if [[ ! -z "$get_tags" ]]; then
+  #             git push --delete origin main-wanhao_dublicator_4s
+  #           fi
 
-            echo "Create"
-            hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
+  #           echo "Create"
+  #           hub release create -m ${githubref##*/}-$machinename ${githubref##*/}-$machinename
 
-            # to quick to direct upload assiats to release, it need to some time
-            sleep 10
+  #           # to quick to direct upload assiats to release, it need to some time
+  #           sleep 10
 
-            echo "Upload assets"
-            hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}-$machinename"   # specify tag name not the github.ref here.
+  #           echo "Upload assets"
+  #           hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}-$machinename"   # specify tag name not the github.ref here.
 
-          }
+  #         }
 
-          find ./compiled/* -prune -type d | while IFS= read -r machine; do
+  #         find ./compiled/* -prune -type d | while IFS= read -r machine; do
 
-            # Get name of machine
-            machinename=`echo "$machine" | cut -d'/' -f 3`
-            echo "Getting Configuration for: $machinename"
+  #           # Get name of machine
+  #           machinename=`echo "$machine" | cut -d'/' -f 3`
+  #           echo "Getting Configuration for: $machinename"
 
-              echo $machine
-              upload_assest $machine
+  #             echo $machine
+  #             upload_assest $machine
 
-          done
-        env:
-          GITHUB_ref: ${{ github.ref }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         done
+  #       env:
+  #         GITHUB_ref: ${{ github.ref }}
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
