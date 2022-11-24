@@ -1,0 +1,16 @@
+echo "Config File loaded"
+#
+REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
+#
+USE_TAG='2.0.5'
+#
+BOARD="mega2560ext"
+#
+USE_CONFIG_VERSION="2.0.5"
+#
+USE_LATEST_TAG=false
+#
+function fix_old_stuff() {
+  # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
+  sed -i '/https:\/\/github.com\/trinamic\/TMC26XStepper\/archive\/master.zip/d' platformio.ini
+}

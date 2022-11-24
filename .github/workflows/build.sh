@@ -2,38 +2,6 @@ echo ""
 
 # ---------------------------------------------------------------------------
 
-# git clone https://github.com/andrivet/ADVi3pp.git
-# REPO_NAME='ADVi3pp'
-# USE_BRANCH='advi3++'
-# USE_CONFIG_VERSION='advi3-2.1.x'
-function fix_old_stuff() {
-    return
-}
-
-# ---------------------------------------------------------------------------
-
-# git clone https://github.com/MarlinFirmware/Marlin.git  
-# REPO_NAME='Marlin'
-# USE_BRANCH='bugfix-2.1.x'
-# USE_CONFIG_VERSION='bugfix-2.1.x'
-# function fix_old_stuff() {
-#     return
-# }
-
-# ---------------------------------------------------------------------------
-
-# git clone https://github.com/MarlinFirmware/Marlin.git 
-# REPO_NAME='Marlin'
-# USE_TAG='2.0.5'
-# USE_CONFIG_VERSION='2.0.5'
-
-# function fix_old_stuff() {
-#   # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
-#   sed -i '/https:\/\/github.com\/trinamic\/TMC26XStepper\/archive\/master.zip/d' platformio.ini
-# }
-
-# ---------------------------------------------------------------------------
-
 # Check if custom configuration files exists within the docker container
 CONFIG_CHECK=$(ls -1 ./configuration/*/*/*.h 2>/dev/null | wc -l)
 if [ $CONFIG_CHECK = 0 ]
@@ -144,9 +112,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
         md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
 
-        echo "https://github.com/MarlinFirmware/Marlin/tree/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
-
-
+        echo "$(echo $REPO_URL | awk -F'\\.git' '{print $1}')/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
 
         printf "\nValidating firmware checksum.."
         if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
