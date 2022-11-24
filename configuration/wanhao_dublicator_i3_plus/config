@@ -1,7 +1,7 @@
 echo "Config File loaded"
 #
 BOARD="advi3pp_51"
-REPO_NAME="https://github.com/andrivet/ADVi3pp.git"
+REPO_URL="https://github.com/andrivet/ADVi3pp.git"
 USE_BRANCH="advi3++"
 USE_CONFIG_VERSION="advi3-2.1.x"
 #

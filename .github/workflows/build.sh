@@ -48,12 +48,15 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
     source $machine/config
 
     echo "$BOARD"
-    echo "$REPO_NAME"
+    echo "$REPO_URL"
     echo "$USE_BRANCH"
     echo "$USE_CONFIG_VERSION"
     echo ""
 
-    git clone $REPO_NAME
+    REPO_NAME=$(echo $REPO_URL | cut -d/ -f5 | cut -d. -f1)
+    echo "$REPO_NAME"
+    
+    git clone $REPO_URL
 
     # Get name of machine
     machinename=`echo "$machine" | cut -d'/' -f 3`
