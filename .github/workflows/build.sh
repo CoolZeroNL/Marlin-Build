@@ -93,72 +93,72 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 exit 1
             fi
 
-        #     # Copy custom Configuration files to Marlin folder 
-        #     cp $machine/${USE_CONFIG_VERSION}/*.h ./${REPO_NAME}/Marlin/
+            # Copy custom Configuration files to Marlin folder 
+            cp $machine/${USE_CONFIG_VERSION}/*.h ./${REPO_NAME}/Marlin/
 
-        #     # Change the default board with value in environment variable
-        #     sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./${REPO_NAME}/platformio.ini
+            # Change the default board with value in environment variable
+            sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./${REPO_NAME}/platformio.ini
 
-        #     # Build Marlin firmware 
-        #     printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
-        #     platformio run -d ${REPO_NAME}/
-        #     success=$?
+            # Build Marlin firmware 
+            printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
+            platformio run -d ${REPO_NAME}/
+            success=$?
 
-        #     FW_EXTENSION=hex
+            FW_EXTENSION=hex
 
-        #     if [[ ${success} -eq 0 ]]; then
-        #         currentpath=`pwd`
-        #         OUTPUT_DIR=${currentpath}/compiled/$machinename/$BOARD
-        #         mkdir -p $OUTPUT_DIR
-        #         echo "$OUTPUT_DIR"
+            if [[ ${success} -eq 0 ]]; then
+                currentpath=`pwd`
+                OUTPUT_DIR=${currentpath}/compiled/$machinename/$BOARD
+                mkdir -p $OUTPUT_DIR
+                echo "$OUTPUT_DIR"
 
-        #         export_filename="firmware_${USE_BRANCH}${USE_TAG}_${git_commit_hash}_${machinename}"
+                export_filename="firmware_${USE_BRANCH}${USE_TAG}_${git_commit_hash}_${machinename}"
 
-        #         # convert elf -> BIN 
-        #         ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./${REPO_NAME}/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
+                # convert elf -> BIN 
+                ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./${REPO_NAME}/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
 
-        #         printf "\nCopying compiled firmware to output folder..\n"
-        #         cd ./${REPO_NAME}/.pio/build/$BOARD
+                printf "\nCopying compiled firmware to output folder..\n"
+                cd ./${REPO_NAME}/.pio/build/$BOARD
 
-        #         if [ $(find . -name "*.${FW_EXTENSION}") ];
-        #         then
-        #         FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
-        #         cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/${export_filename}.$FW_EXTENSION
+                if [ $(find . -name "*.${FW_EXTENSION}") ];
+                then
+                FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
+                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/${export_filename}.$FW_EXTENSION
 
-        #         md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
+                md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
 
-        #         echo "$(echo $REPO_URL | awk -F'\\.git' '{print $1}')/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
+                echo "$(echo $REPO_URL | awk -F'\\.git' '{print $1}')/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
 
-        #         printf "\nValidating firmware checksum.."
-        #         if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
-        #         then
-        #             printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
-        #             echo ""
-        #             echo "  (\.   \      ,/)"
-        #             echo "   \(   |\     )/    Yer done!"
-        #             echo "   //\  | \   /\\"
-        #             echo "  (/ /\_#oo#_/\ \)   Happy 3D-Printing!"
-        #             echo "   \/\  ####  /\/"
-        #             echo "        '##'"
-        #             echo ""
+                printf "\nValidating firmware checksum.."
+                if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
+                then
+                    printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
+                    echo ""
+                    echo "  (\.   \      ,/)"
+                    echo "   \(   |\     )/    Yer done!"
+                    echo "   //\  | \   /\\"
+                    echo "  (/ /\_#oo#_/\ \)   Happy 3D-Printing!"
+                    echo "   \/\  ####  /\/"
+                    echo "        '##'"
+                    echo ""
 
-        #         else
-        #             printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
-        #             printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-        #             exit 1
-        #         fi
-        #         else
-        #             printf "\e[0mMD5 Checksum Validation: \e[1;31mFirmware file with $FW_EXTENSION file extension not found!\n"
-        #             printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-        #             exit 1
-        #         fi
+                else
+                    printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
+                    printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+                    exit 1
+                fi
+                else
+                    printf "\e[0mMD5 Checksum Validation: \e[1;31mFirmware file with $FW_EXTENSION file extension not found!\n"
+                    printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+                    exit 1
+                fi
 
-        #         cd ../../../../
+                cd ../../../../
 
-        #     else
-        #         printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-        #         exit 1
-        #     fi
+            else
+                printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+                exit 1
+            fi
 
             echo ""
             echo "----------------------------------------------------"
