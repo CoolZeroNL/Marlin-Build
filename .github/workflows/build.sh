@@ -33,64 +33,64 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         echo "USE_CONFIG_VERSION: $USE_CONFIG_VERSION"
 
         REPO_NAME=$(echo $REPO_URL | cut -d/ -f5 | cut -d. -f1)
-        echo "$REPO_NAME"
+        echo "REPO_NAME: $REPO_NAME"
         echo ""
 
-        # if [[ $BUILD == true ]]; then
+        if [[ $BUILD == true ]]; then
 
-        #     git clone $REPO_URL
+            git clone $REPO_URL
 
-        #     # Get name of machine
-        #     machinename=`echo "$machine" | cut -d'/' -f 3`
-        #     echo "Getting Configuration for: $machinename"
+            # Get name of machine
+            machinename=`echo "$machine" | cut -d'/' -f 3`
+            echo "Getting Configuration for: $machinename"
 
-        #     # Override MarlinFirmware version using branch or tag
-        #     if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
+            # Override MarlinFirmware version using branch or tag
+            if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
 
-        #         printf "\n\e[01;36mUse Latest\e[0m\n"
-        #         cd ${REPO_NAME}/
-        #         git fetch origin
-        #         git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
-        #         printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
-        #         git_commit_hash=`git rev-parse --short HEAD`
-        #         cd ..
+                printf "\n\e[01;36mUse Latest\e[0m\n"
+                cd ${REPO_NAME}/
+                git fetch origin
+                git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+                printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+                git_commit_hash=`git rev-parse --short HEAD`
+                cd ..
 
-        #     elif [[ $USE_TAG ]]; then
+            elif [[ $USE_TAG ]]; then
 
-        #         printf "\n\e[01;36mUse TAG\e[0m\n"
-        #         cd ${REPO_NAME}/
-        #         git fetch origin
-        #         git checkout $USE_TAG
-        #         printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
-        #         git_commit_hash=`git rev-parse --short HEAD`
-        #         fix_old_stuff
-        #         cd ..
+                printf "\n\e[01;36mUse TAG\e[0m\n"
+                cd ${REPO_NAME}/
+                git fetch origin
+                git checkout $USE_TAG
+                printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+                git_commit_hash=`git rev-parse --short HEAD`
+                fix_old_stuff
+                cd ..
 
-        #     elif [[ $USE_BRANCH ]]; then
+            elif [[ $USE_BRANCH ]]; then
 
-        #         printf "\n\e[01;36mUse Branch\e[0m\n"
-        #         cd ${REPO_NAME}/
-        #         git fetch origin
-        #         git checkout $USE_BRANCH
-        #         printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
-        #         git_commit_hash=`git rev-parse --short HEAD`
-        #         fix_old_stuff
-        #         cd ..
+                printf "\n\e[01;36mUse Branch\e[0m\n"
+                cd ${REPO_NAME}/
+                git fetch origin
+                git checkout $USE_BRANCH
+                printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
+                git_commit_hash=`git rev-parse --short HEAD`
+                fix_old_stuff
+                cd ..
 
-        #     else
+            else
 
-        #         echo "no option selected!"
-        #         exit 1
+                echo "no option selected!"
+                exit 1
 
-        #     fi
+            fi
 
-        #     # Find what board to build for 
-        #     # BOARD=`ls -A1 $machine/board* | awk -F'=' '{print $2}'`
-        #     echo "Getting Board Setting: $BOARD"
-        #     if [[ -z "$BOARD" ]]; then
-        #         echo "No board is found"
-        #         exit 1
-        #     fi
+            # Find what board to build for 
+            # BOARD=`ls -A1 $machine/board* | awk -F'=' '{print $2}'`
+            echo "Getting Board Setting: $BOARD"
+            if [[ -z "$BOARD" ]]; then
+                echo "No board is found"
+                exit 1
+            fi
 
         #     # Copy custom Configuration files to Marlin folder 
         #     cp $machine/${USE_CONFIG_VERSION}/*.h ./${REPO_NAME}/Marlin/
@@ -158,9 +158,10 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         #         printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
         #         exit 1
         #     fi
-        # else
-        #     echo "Building Skippling build: $BUILD"
-        # fi
+
+        else
+            echo "Building Skippling build: $BUILD"
+        fi
 
     done
 
