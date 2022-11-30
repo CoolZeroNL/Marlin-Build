@@ -38,9 +38,9 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         echo "REPO_URL: $REPO_URL"
         echo "USE_CONFIG_VERSION: $USE_CONFIG_VERSION"
         echo "USE_BRANCH: $USE_BRANCH"
+        echo "USE_TAG: $USE_TAG"
         echo "USE_COMMIT: $USE_COMMIT"
         echo "USE_LATEST_TAG: $USE_LATEST_TAG"
-        echo "USE_TAG: $USE_TAG"
         REPO_NAME=$(echo $REPO_URL | cut -d/ -f5 | cut -d. -f1)
         echo "REPO_NAME: $REPO_NAME"
         echo ""
@@ -132,7 +132,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 mkdir -p $OUTPUT_DIR
                 echo "$OUTPUT_DIR"
 
-                export_filename="firmware_${USE_BRANCH}${USE_TAG}_${git_commit_hash}_${machinename}"
+                export_filename="firmware_${USE_BRANCH}${USE_TAG}${USE_COMMIT}_${git_commit_hash}_${machinename}"
 
                 # convert elf -> BIN 
                 ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./${REPO_NAME}/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
