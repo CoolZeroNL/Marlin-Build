@@ -21,7 +21,11 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         ls -la $confversie
         echo ""
         echo "---"
-
+        if [[ -f $confversie/config ]]; then
+        echo "fount"
+        else
+        echo "not dound"
+        fi
         # source $confversie/config
 
         # echo "$BOARD"

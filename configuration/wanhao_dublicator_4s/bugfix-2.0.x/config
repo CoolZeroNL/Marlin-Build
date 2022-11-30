@@ -1,0 +1,13 @@
+echo "Config File loaded"
+#
+REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
+#
+USE_BRANCH="bugfix-2.0.x"
+#
+BOARD="mega1280"
+#
+USE_CONFIG_VERSION="bugfix-2.0.x"
+#
+USE_LATEST_TAG=false
+#
+function fix_old_stuff() { return }
