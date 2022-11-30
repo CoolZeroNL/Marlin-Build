@@ -29,9 +29,10 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         echo "BUILD: $BUILD"
         echo "BOARD: $BOARD"
         echo "REPO_URL: $REPO_URL"
-        echo "USE_BRANCH: $USE_BRANCH"
         echo "USE_CONFIG_VERSION: $USE_CONFIG_VERSION"
-
+        echo "USE_BRANCH: $USE_BRANCH"
+        echo "USE_LATEST_TAG: $USE_LATEST_TAG"
+        echo "USE_TAG: $USE_TAG"
         REPO_NAME=$(echo $REPO_URL | cut -d/ -f5 | cut -d. -f1)
         echo "REPO_NAME: $REPO_NAME"
         echo ""
@@ -158,6 +159,10 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         #         printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
         #         exit 1
         #     fi
+
+            echo ""
+            echo "----------------------------------------------------"
+
 
         else
             echo "Building Skippling build: $BUILD"
