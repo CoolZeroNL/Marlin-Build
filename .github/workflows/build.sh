@@ -18,6 +18,9 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
     find $machine/* -prune -type d | while IFS= read -r confversie; do
 
         echo "$confversie"
+        ls -la $confversie
+        echo ""
+        echo "---"
 
         # source $confversie/config
 
