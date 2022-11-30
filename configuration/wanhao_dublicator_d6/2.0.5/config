@@ -3,7 +3,8 @@ BUILD=false
 #
 REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
 #
-USE_TAG='2.0.5'
+USE_TAG="2.0.5"
+USE_BRANCH=""
 #
 BOARD="mega2560"
 #

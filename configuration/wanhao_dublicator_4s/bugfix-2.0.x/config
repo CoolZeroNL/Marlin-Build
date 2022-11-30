@@ -3,6 +3,7 @@ BUILD=false
 #
 REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
 #
+USE_TAG=""
 USE_BRANCH="bugfix-2.0.x"
 #
 BOARD="mega1280"
