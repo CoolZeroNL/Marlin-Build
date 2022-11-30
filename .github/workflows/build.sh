@@ -21,18 +21,17 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         ls -la $confversie
         echo ""
         echo "---"
-        if [[ -f $confversie/config ]]; then
-        echo "fount"
-        else
-        echo "not dound"
+        if [[ ! -f $confversie/config ]]; then
+            echo "Place a 'config' file in: $confversie"
+            exit 1
         fi
-        # source $confversie/config
+        source $confversie/config
 
-        # echo "$BOARD"
-        # echo "$REPO_URL"
-        # echo "$USE_BRANCH"
-        # echo "$USE_CONFIG_VERSION"
-        # echo ""
+        echo "$BOARD"
+        echo "$REPO_URL"
+        echo "$USE_BRANCH"
+        echo "$USE_CONFIG_VERSION"
+        echo ""
 
         # REPO_NAME=$(echo $REPO_URL | cut -d/ -f5 | cut -d. -f1)
         # echo "$REPO_NAME"
