@@ -14,154 +14,153 @@ shopt -s dotglob
 find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
     echo "$machine"
+    echo ""
 
     find $machine/* -prune -type d | while IFS= read -r confversie; do
 
         echo "$confversie"
-        ls -la $confversie
         echo ""
-        echo "---"
         if [[ ! -f $confversie/config ]]; then
             echo "Place a 'config' file in: $confversie"
             exit 1
         fi
         source $confversie/config
 
-        echo "$BUILD"
-        echo "$BOARD"
-        echo "$REPO_URL"
-        echo "$USE_BRANCH"
-        echo "$USE_CONFIG_VERSION"
-        echo ""
+        echo "BUILD: $BUILD"
+        echo "BOARD: $BOARD"
+        echo "REPO_URL: $REPO_URL"
+        echo "USE_BRANCH: $USE_BRANCH"
+        echo "USE_CONFIG_VERSION: $USE_CONFIG_VERSION"
 
         REPO_NAME=$(echo $REPO_URL | cut -d/ -f5 | cut -d. -f1)
         echo "$REPO_NAME"
-        
-        if [[ $BUILD == true ]]; then
+        echo ""
 
-            git clone $REPO_URL
+        # if [[ $BUILD == true ]]; then
 
-            # Get name of machine
-            machinename=`echo "$machine" | cut -d'/' -f 3`
-            echo "Getting Configuration for: $machinename"
+        #     git clone $REPO_URL
 
-            # Override MarlinFirmware version using branch or tag
-            if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
+        #     # Get name of machine
+        #     machinename=`echo "$machine" | cut -d'/' -f 3`
+        #     echo "Getting Configuration for: $machinename"
 
-                printf "\n\e[01;36mUse Latest\e[0m\n"
-                cd ${REPO_NAME}/
-                git fetch origin
-                git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
-                printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
-                git_commit_hash=`git rev-parse --short HEAD`
-                cd ..
+        #     # Override MarlinFirmware version using branch or tag
+        #     if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
 
-            elif [[ $USE_TAG ]]; then
+        #         printf "\n\e[01;36mUse Latest\e[0m\n"
+        #         cd ${REPO_NAME}/
+        #         git fetch origin
+        #         git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+        #         printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+        #         git_commit_hash=`git rev-parse --short HEAD`
+        #         cd ..
 
-                printf "\n\e[01;36mUse TAG\e[0m\n"
-                cd ${REPO_NAME}/
-                git fetch origin
-                git checkout $USE_TAG
-                printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
-                git_commit_hash=`git rev-parse --short HEAD`
-                fix_old_stuff
-                cd ..
+        #     elif [[ $USE_TAG ]]; then
 
-            elif [[ $USE_BRANCH ]]; then
+        #         printf "\n\e[01;36mUse TAG\e[0m\n"
+        #         cd ${REPO_NAME}/
+        #         git fetch origin
+        #         git checkout $USE_TAG
+        #         printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+        #         git_commit_hash=`git rev-parse --short HEAD`
+        #         fix_old_stuff
+        #         cd ..
 
-                printf "\n\e[01;36mUse Branch\e[0m\n"
-                cd ${REPO_NAME}/
-                git fetch origin
-                git checkout $USE_BRANCH
-                printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
-                git_commit_hash=`git rev-parse --short HEAD`
-                fix_old_stuff
-                cd ..
+        #     elif [[ $USE_BRANCH ]]; then
 
-            else
+        #         printf "\n\e[01;36mUse Branch\e[0m\n"
+        #         cd ${REPO_NAME}/
+        #         git fetch origin
+        #         git checkout $USE_BRANCH
+        #         printf "\nYou are now using the latest commit in branch:\e[01;33m $(git branch | sed -n '/\* /s///p')\e[0m\n\n"
+        #         git_commit_hash=`git rev-parse --short HEAD`
+        #         fix_old_stuff
+        #         cd ..
 
-                echo "no option selected!"
-                exit 1
+        #     else
 
-            fi
+        #         echo "no option selected!"
+        #         exit 1
 
-            # Find what board to build for 
-            # BOARD=`ls -A1 $machine/board* | awk -F'=' '{print $2}'`
-            echo "Getting Board Setting: $BOARD"
-            if [[ -z "$BOARD" ]]; then
-                echo "No board is found"
-                exit 1
-            fi
+        #     fi
 
-            # Copy custom Configuration files to Marlin folder 
-            cp $machine/${USE_CONFIG_VERSION}/*.h ./${REPO_NAME}/Marlin/
+        #     # Find what board to build for 
+        #     # BOARD=`ls -A1 $machine/board* | awk -F'=' '{print $2}'`
+        #     echo "Getting Board Setting: $BOARD"
+        #     if [[ -z "$BOARD" ]]; then
+        #         echo "No board is found"
+        #         exit 1
+        #     fi
 
-            # Change the default board with value in environment variable
-            sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./${REPO_NAME}/platformio.ini
+        #     # Copy custom Configuration files to Marlin folder 
+        #     cp $machine/${USE_CONFIG_VERSION}/*.h ./${REPO_NAME}/Marlin/
 
-            # Build Marlin firmware 
-            printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
-            platformio run -d ${REPO_NAME}/
-            success=$?
+        #     # Change the default board with value in environment variable
+        #     sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./${REPO_NAME}/platformio.ini
 
-            FW_EXTENSION=hex
+        #     # Build Marlin firmware 
+        #     printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
+        #     platformio run -d ${REPO_NAME}/
+        #     success=$?
 
-            if [[ ${success} -eq 0 ]]; then
-                currentpath=`pwd`
-                OUTPUT_DIR=${currentpath}/compiled/$machinename/$BOARD
-                mkdir -p $OUTPUT_DIR
-                echo "$OUTPUT_DIR"
+        #     FW_EXTENSION=hex
 
-                export_filename="firmware_${USE_BRANCH}${USE_TAG}_${git_commit_hash}_${machinename}"
+        #     if [[ ${success} -eq 0 ]]; then
+        #         currentpath=`pwd`
+        #         OUTPUT_DIR=${currentpath}/compiled/$machinename/$BOARD
+        #         mkdir -p $OUTPUT_DIR
+        #         echo "$OUTPUT_DIR"
 
-                # convert elf -> BIN 
-                ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./${REPO_NAME}/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
+        #         export_filename="firmware_${USE_BRANCH}${USE_TAG}_${git_commit_hash}_${machinename}"
 
-                printf "\nCopying compiled firmware to output folder..\n"
-                cd ./${REPO_NAME}/.pio/build/$BOARD
+        #         # convert elf -> BIN 
+        #         ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./${REPO_NAME}/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
 
-                if [ $(find . -name "*.${FW_EXTENSION}") ];
-                then
-                FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
-                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/${export_filename}.$FW_EXTENSION
+        #         printf "\nCopying compiled firmware to output folder..\n"
+        #         cd ./${REPO_NAME}/.pio/build/$BOARD
 
-                md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
+        #         if [ $(find . -name "*.${FW_EXTENSION}") ];
+        #         then
+        #         FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
+        #         cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/${export_filename}.$FW_EXTENSION
 
-                echo "$(echo $REPO_URL | awk -F'\\.git' '{print $1}')/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
+        #         md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
 
-                printf "\nValidating firmware checksum.."
-                if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
-                then
-                    printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
-                    echo ""
-                    echo "  (\.   \      ,/)"
-                    echo "   \(   |\     )/    Yer done!"
-                    echo "   //\  | \   /\\"
-                    echo "  (/ /\_#oo#_/\ \)   Happy 3D-Printing!"
-                    echo "   \/\  ####  /\/"
-                    echo "        '##'"
-                    echo ""
+        #         echo "$(echo $REPO_URL | awk -F'\\.git' '{print $1}')/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
 
-                else
-                    printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
-                    printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-                    exit 1
-                fi
-                else
-                    printf "\e[0mMD5 Checksum Validation: \e[1;31mFirmware file with $FW_EXTENSION file extension not found!\n"
-                    printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-                    exit 1
-                fi
+        #         printf "\nValidating firmware checksum.."
+        #         if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
+        #         then
+        #             printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
+        #             echo ""
+        #             echo "  (\.   \      ,/)"
+        #             echo "   \(   |\     )/    Yer done!"
+        #             echo "   //\  | \   /\\"
+        #             echo "  (/ /\_#oo#_/\ \)   Happy 3D-Printing!"
+        #             echo "   \/\  ####  /\/"
+        #             echo "        '##'"
+        #             echo ""
 
-                cd ../../../../
+        #         else
+        #             printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
+        #             printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+        #             exit 1
+        #         fi
+        #         else
+        #             printf "\e[0mMD5 Checksum Validation: \e[1;31mFirmware file with $FW_EXTENSION file extension not found!\n"
+        #             printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+        #             exit 1
+        #         fi
 
-            else
-                printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-                exit 1
-            fi
-        else
-            echo "Building Skippling build: $BUILD"
-        fi
+        #         cd ../../../../
+
+        #     else
+        #         printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+        #         exit 1
+        #     fi
+        # else
+        #     echo "Building Skippling build: $BUILD"
+        # fi
 
     done
 

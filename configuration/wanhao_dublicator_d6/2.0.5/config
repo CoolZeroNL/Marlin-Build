@@ -5,7 +5,7 @@ REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
 #
 USE_TAG='2.0.5'
 #
-BOARD="mega2560ext"
+BOARD="mega2560"
 #
 USE_CONFIG_VERSION="2.0.5"
 #
