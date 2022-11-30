@@ -1,5 +1,12 @@
 echo ""
 
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[93m"
+ENDCOLOR="\e[0m"
+
+echo -e "${YELLOW}[INFO]${ENDCOLOR} "
+
 # ---------------------------------------------------------------------------
 
 # Check if custom configuration files exists within the docker container
@@ -13,12 +20,12 @@ fi
 shopt -s dotglob
 find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
-    echo "$machine"
+    echo -e "${YELLOW}[INFO]${ENDCOLOR} $machine"
     echo ""
 
     find $machine/* -prune -type d | while IFS= read -r confversie; do
 
-        echo "$confversie"
+        echo "- $confversie"
         echo ""
         if [[ ! -f $confversie/config ]]; then
             echo "Place a 'config' file in: $confversie"
@@ -38,6 +45,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         echo ""
 
         if [[ $BUILD == true ]]; then
+
 
             git clone $REPO_URL
 
@@ -160,13 +168,15 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 exit 1
             fi
 
-            echo ""
-            echo "----------------------------------------------------"
 
 
         else
             echo "Building Skippling build: $BUILD"
         fi
+
+
+        echo ""
+        echo "----------------------------------------------------"
 
     done
 
