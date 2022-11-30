@@ -4,7 +4,7 @@ BUILD=true
 REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
 #
 USE_TAG=""
-USE_COMMIT="8298a47" # (2022-11-15) --> 
+USE_COMMIT="8298a47" # (2022-11-15) --> working
 # USE_COMMIT="59e1989" # (2022-11-22) --> not working Z
 # USE_COMMIT="01e23af" # (2022-11-29) --> not working Z | new format configuration.h
 USE_BRANCH=""
