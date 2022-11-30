@@ -1,4 +1,5 @@
 echo "Config File loaded"
+BUILD=false
 #
 REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
 #
@@ -9,6 +10,10 @@ BOARD="mega2560ext"
 USE_CONFIG_VERSION="2.0.5"
 #
 USE_LATEST_TAG=false
+#
+COMPARE_CONFIG=false
+COMPARE_BRANCH="2.0.5"
+COMPARE_CONFIG_REPO_URL="https://github.com/MarlinFirmware/Configurations.git"
 #
 function fix_old_stuff() {
   # fix 404 for: TMC26XStepper (The library is included in Marlin\src\module\stepper)
