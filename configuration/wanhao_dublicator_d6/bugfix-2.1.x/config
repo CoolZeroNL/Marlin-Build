@@ -4,7 +4,10 @@ BUILD=true
 REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
 #
 USE_TAG=""
-USE_BRANCH="bugfix-2.1.x"
+USE_COMMIT="59e1989" # (2022-11-22)
+# USE_COMMIT="01e23af" # (2022-11-29) --> new format configuration.h
+USE_BRANCH=""
+# USE_BRANCH="bugfix-2.1.x"
 #
 BOARD="mega2560ext"
 #

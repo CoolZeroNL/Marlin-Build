@@ -38,6 +38,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
         echo "REPO_URL: $REPO_URL"
         echo "USE_CONFIG_VERSION: $USE_CONFIG_VERSION"
         echo "USE_BRANCH: $USE_BRANCH"
+        echo "USE_COMMIT: $USE_COMMIT"
         echo "USE_LATEST_TAG: $USE_LATEST_TAG"
         echo "USE_TAG: $USE_TAG"
         REPO_NAME=$(echo $REPO_URL | cut -d/ -f5 | cut -d. -f1)
@@ -62,6 +63,17 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
                 printf "\nYou are now using git tag:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
                 git_commit_hash=`git rev-parse --short HEAD`
+                cd ..
+
+            elif [[ $USE_COMMIT ]]; then
+
+                printf "\n\e[01;36mUse COMMIT\e[0m\n"
+                cd ${REPO_NAME}/
+                git fetch origin
+                git checkout $USE_COMMIT
+                printf "\nYou are now using git commit:\e[01;33m $(git tag --points-at HEAD)\e[0m\n\n"
+                git_commit_hash=`git rev-parse --short HEAD`
+                fix_old_stuff
                 cd ..
 
             elif [[ $USE_TAG ]]; then
