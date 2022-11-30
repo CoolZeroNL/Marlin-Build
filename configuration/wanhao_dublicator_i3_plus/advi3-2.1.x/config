@@ -10,4 +10,4 @@ USE_CONFIG_VERSION="advi3-2.1.x"
 #
 USE_LATEST_TAG=false
 #
-function fix_old_stuff() { return }
+function fix_old_stuff() { return; }
