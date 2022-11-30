@@ -1,13 +1,14 @@
 # Configuration.h
 
-|2.0                                                        |2.1.1                                                       | |
-|-----------------------------------------------------------|------------------------------------------------------------|-|
-|                                                           | #define SWITCHING_NOZZLE_SERVO_DWELL 2500                  | // Dwell time to wait for servo to make physical move
-| #define DEFAULT_EJERK    5.0                              | #define DEFAULT_EJERK    1.0                               | // May be used by Linear Advance
-| #define S_CURVE_ACCELERATION                              | //#define S_CURVE_ACCELERATION                             | // This option eliminates vibration during printing by fitting a Bézier curve to move acceleration, producing much smoother direction changes.
-| #define LEVEL_BED_CORNERS                                 | //#define LEVEL_BED_CORNER                                 | // Add a menu item to move between bed corners for manual bed adjustment
-| #define XY_SKEW_FACTOR 0.0                                | //#define XY_SKEW_FACTOR 0.0                               | // Or, set the XY skew factor directly
-|
+| 2.0                          | 2.1.1                                     |                                                                                                                                                |
+| ---------------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|                              | #define SWITCHING_NOZZLE_SERVO_DWELL 2500 | // Dwell time to wait for servo to make physical move                                                                                          |
+| #define DEFAULT_EJERK    5.0 | #define DEFAULT_EJERK    1.0              | // May be used by Linear Advance                                                                                                               |
+| #define S_CURVE_ACCELERATION | //#define S_CURVE_ACCELERATION            | // This option eliminates vibration during printing by fitting a Bézier curve to move acceleration, producing much smoother direction changes. |
+| #define LEVEL_BED_CORNERS    | //#define LEVEL_BED_CORNER                | // Add a menu item to move between bed corners for manual bed adjustment                                                                       |
+| #define XY_SKEW_FACTOR 0.0   | //#define XY_SKEW_FACTOR 0.0              | // Or, set the XY skew factor directly                                                                                                         |
+|                              | #define Z_HOMING_HEIGHT  0                |                                                                                                                                                |
+|                              |                                           |                                                                                                                                                |
  
 
 ## Tuning
@@ -37,6 +38,20 @@
 | #define EMERGENCY_PARSER                           | //#define EMERGENCY_PARSER                                 | // Add a low-level parser to intercept certain commands as they * enter the serial receive buffer, so they cannot be blocked. * Currently handles M108, M112, M410, M876
 | //#define HOST_ACTION_COMMANDS                     | #define HOST_ACTION_COMMANDS                               | // Host Prompt Support enables Marlin to use the host for user prompts so filament runout and other processes can be managed from the host side.
 
+
+# Home clearing
+
+We leave our bed at the bottom of the printer when the print is done. But any homeing will raise the bed x lower and then do the homing. We dont want this beheaver, so we disable this.
+
+configuration.h
+
+from:
+// #define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+                                  // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
+
+to
+#define Z_HOMING_HEIGHT  0      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+                                  // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
 # Not working:
 
