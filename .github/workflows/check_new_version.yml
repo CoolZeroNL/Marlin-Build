@@ -1,9 +1,13 @@
 name: Check Marlin Version
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+  - cron: "0 0 * * *"
+
+# on:
+#   push:
+#     branches:
+#       - main
 
 jobs:
 
@@ -33,7 +37,7 @@ jobs:
         GIT_LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
 
         if echo "$GIT_LAST_COMMIT_MSG" | grep -q "[cron]"; then
-          echo " Last Commit is [cron]"
+          echo "Last Commit is [cron]"
           echo "$GIT_LAST_COMMIT_MSG"
         fi
         
