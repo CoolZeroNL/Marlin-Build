@@ -23,8 +23,9 @@ jobs:
         path: Marlin
 
 
-    - name: Push firmware
+    - name: detect
       run: |
+        ls -la
         cd Marlin
 
         # Run if the last commit is pushed by cron
