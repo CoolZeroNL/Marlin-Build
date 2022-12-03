@@ -7,6 +7,9 @@ By default, Marlin expects the e-steps for each of your extruders to be the same
 |
 
 
+Flash command: avrdude -p m1280 -c usbasp -e -U flash:w:firmware.hex
+
+
 You will then be able to enter a unique M92 value for each extruder.
 
 Sailfish settings:
