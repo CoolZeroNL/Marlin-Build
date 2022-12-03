@@ -1,19 +1,22 @@
 echo "Config File loaded"
-BUILD=false
+BUILD=false                                                                                     # Compile this version or skip it
 #
-REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
+REPO_URL="https://github.com/MarlinFirmware/Marlin.git"                                         # url of the git repo
 #
-USE_TAG=""
-USE_BRANCH="bugfix-2.1.x"
+USE_LATEST_TAG=false                                                                            # Use latest tag of git repo, if used it wont look at tag, or branch, or commit values
 #
-BOARD="mega1280"
+USE_TAG=""                                                                                      # what TAG needs to be checout from the git repo        (ether TAG, or BRANCH, or COMMIT)
+USE_BRANCH="bugfix-2.1.x"                                                                       # what BRANCH needs to be checout from the git repo     (ether TAG, or BRANCH, or COMMIT)
+USE_COMMIT=""                                                                                   # what COMMIT needs to be checout from the git repo     (ether TAG, or BRANCH, or COMMIT)
 #
-USE_CONFIG_VERSION="bugfix-2.1.x"
+BOARD="mega1280"                                                                                # what board need to be used for platform.ini
 #
-USE_LATEST_TAG=false
+USE_CONFIG_VERSION="bugfix-2.1.x"                                                               # what folder needs to be used to compile, this folder is where the configuration.h and configuration_adv.h are placed
 #
-COMPARE_CONFIG=false
-COMPARE_BRANCH="bugfix-2.1.x"
-COMPARE_CONFIG_REPO_URL="https://github.com/MarlinFirmware/Configurations.git"
+# COMPARE_CONFIG=false                                                                            # WIP
+# COMPARE_BRANCH="bugfix-2.1.x"                                                                   # WIP
+# COMPARE_CONFIG_REPO_URL="https://github.com/MarlinFirmware/Configurations.git"                  # WIP
 #
+#
+# Function in case u need to do version specific tasks, most used for older version to build of fixing broken deps.
 function fix_old_stuff() { return; }

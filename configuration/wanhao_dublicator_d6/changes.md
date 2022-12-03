@@ -7,7 +7,7 @@
 | #define S_CURVE_ACCELERATION | //#define S_CURVE_ACCELERATION            | // This option eliminates vibration during printing by fitting a Bézier curve to move acceleration, producing much smoother direction changes. |
 | #define LEVEL_BED_CORNERS    | //#define LEVEL_BED_CORNER                | // Add a menu item to move between bed corners for manual bed adjustment                                                                       |
 | #define XY_SKEW_FACTOR 0.0   | //#define XY_SKEW_FACTOR 0.0              | // Or, set the XY skew factor directly                                                                                                         |
-|                              | #define Z_HOMING_HEIGHT  0                |                                                                                                                                                |
+|                              | #define Z_HOMING_HEIGHT  0                | // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps,                                                                                                                                                |
 |                              |                                           |                                                                                                                                                |
  
 
