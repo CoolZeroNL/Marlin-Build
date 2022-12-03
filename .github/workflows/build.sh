@@ -47,6 +47,10 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
         if [[ $BUILD == true ]]; then
 
+            if [[ -d "./Marlin/" ]]; then 
+                echo "existing Marling repo folder"
+                rm -Rf Marlin
+            fi
 
             git clone $REPO_URL
 
