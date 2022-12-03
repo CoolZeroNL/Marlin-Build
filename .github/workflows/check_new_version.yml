@@ -38,8 +38,9 @@ jobs:
         fi
         
         cd ..
-        cd Marlin-Build
         echo "$GIT_LAST_COMMIT_MSG" >> .github/workflows/check_new_version.yml.keeptrack
+
+        cat .github/workflows/check_new_version.yml.keeptrack
 
         # git config user.name github-actions
         # git config user.email github-actions@github.com
