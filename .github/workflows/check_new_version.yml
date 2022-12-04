@@ -36,7 +36,7 @@ jobs:
         
         GIT_LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
 
-        if echo "$GIT_LAST_COMMIT_MSG" | grep -q "[cron]"; then
+        if echo "$GIT_LAST_COMMIT_MSG" | grep -q "\[cron\]"; then
           echo "Last Commit is [cron]"
           echo "$GIT_LAST_COMMIT_MSG"
         fi
