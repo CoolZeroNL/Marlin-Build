@@ -125,12 +125,12 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             # Change the default board with value in environment variable
             sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./${REPO_NAME}/platformio.ini
 
+            FW_EXTENSION=hex
+
             # Build Marlin firmware 
             printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
             platformio run -d ${REPO_NAME}/
             success=$?
-
-            FW_EXTENSION=hex
 
             if [[ ${success} -eq 0 ]]; then
                 currentpath=`pwd`
