@@ -20,7 +20,11 @@ fi
 shopt -s dotglob
 find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
-    echo -e "${YELLOW}[INFO]${ENDCOLOR} $machine"
+    # Get name of machine
+    machinename=`echo "$machine" | cut -d'/' -f 3`    
+    # echo "Getting Configuration for: $machinename"
+    
+    echo -e "${YELLOW}[INFO]${ENDCOLOR} $(echo $machinename | sed 's/_/ /g')"
     echo ""
 
     find $machine/* -prune -type d | while IFS= read -r confversie; do
@@ -54,9 +58,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
             git clone $REPO_URL
 
-            # Get name of machine
-            machinename=`echo "$machine" | cut -d'/' -f 3`
-            echo "Getting Configuration for: $machinename"
+
 
             # Override MarlinFirmware version using branch or tag
             if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
