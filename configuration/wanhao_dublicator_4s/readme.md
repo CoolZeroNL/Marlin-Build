@@ -1,18 +1,20 @@
-Special note for dual/multi extrusion
-By default, Marlin expects the e-steps for each of your extruders to be the same. To work around this, you must compile with DISTINCT_E_FACTORS uncommented/enabled in configuration.h:
+# How to flash
+
+Use the atmega 1280 ISP pin headers on the mainboard
+![This is an image](usbasp_atmega1280.jpg)
 
 
-| | Sailfish | 2.1.x |
-|-|----------|-------|
-|
+## Flash command: 
+``` 
+avrdude -p m1280 -c usbasp -e -U flash:w:firmware.hex
+```
 
 
-Flash command: avrdude -p m1280 -c usbasp -e -U flash:w:firmware.hex
+# Comments
+- single stepper for Y, for both sides, so with anything pulling on extduder bay it will mis steps. (like the PFTE tupes!)
 
 
-You will then be able to enter a unique M92 value for each extruder.
-
-Sailfish settings:
+# Backup of Sailfish settings:
 
 ```xml
 System Information
@@ -67,114 +69,114 @@ M18 (Turn off steppers after a build.)
 	</machine>
 ```
 
-<!-- Dualstrusion_start.gcode -->
-(**** start.gcode for The Replicator, Dualstrusion! ****)
-M103 (disable RPM)
-M73 P0 (enable build progress)
-G21 (set units to mm)
-G90 (set positioning to absolute)
-M109 S110 T0 (set HBP temperature)
-M104 S220 T0 (set extruder temperature)
-M104 S220 T1 (set extruder temperature)
-(**** begin homing ****)
-G162 X Y F2500 (home XY axes maximum)
-G161 Z F1100 (home Z axis minimum)
-G92 Z-5 (set Z to -5)
-G1 Z0.0 (move Z to "0")
-G161 Z F100 (home Z axis minimum)
-M132 X Y Z A B (Recall stored home offsets for XYZAB axis)
-(**** end homing ****)
-G1 X-110.5 Y-74 Z50 F3300.0 (move to waiting position)
-G130 X20 Y20 Z20 A20 B20 (Lower stepper Vrefs while heating)
-M6 T0 (wait for toolhead, and HBP to reach temperature)
-M6 T1 (wait for toolhead, and HBP to reach temperature)
-G130 X127 Y127 Z40 A127 B127 (Set Stepper motor Vref to defaults)
-G0 X-110.5 Y-74     (Position Nozzle)
-G0 Z0.6         (Position Height)
-G1 E4 F50.0      (Create Anchor)
-G92 E0
-(**** end of start.gcode ****)
+        <!-- Dualstrusion_start.gcode -->
+        (**** start.gcode for The Replicator, Dualstrusion! ****)
+        M103 (disable RPM)
+        M73 P0 (enable build progress)
+        G21 (set units to mm)
+        G90 (set positioning to absolute)
+        M109 S110 T0 (set HBP temperature)
+        M104 S220 T0 (set extruder temperature)
+        M104 S220 T1 (set extruder temperature)
+        (**** begin homing ****)
+        G162 X Y F2500 (home XY axes maximum)
+        G161 Z F1100 (home Z axis minimum)
+        G92 Z-5 (set Z to -5)
+        G1 Z0.0 (move Z to "0")
+        G161 Z F100 (home Z axis minimum)
+        M132 X Y Z A B (Recall stored home offsets for XYZAB axis)
+        (**** end homing ****)
+        G1 X-110.5 Y-74 Z50 F3300.0 (move to waiting position)
+        G130 X20 Y20 Z20 A20 B20 (Lower stepper Vrefs while heating)
+        M6 T0 (wait for toolhead, and HBP to reach temperature)
+        M6 T1 (wait for toolhead, and HBP to reach temperature)
+        G130 X127 Y127 Z40 A127 B127 (Set Stepper motor Vref to defaults)
+        G0 X-110.5 Y-74     (Position Nozzle)
+        G0 Z0.6         (Position Height)
+        G1 E4 F50.0      (Create Anchor)
+        G92 E0
+        (**** end of start.gcode ****)
 
-<!-- Dual_Head_end.gcode -->
-(******* End.gcode*******)
-M73 P100 ( End  build progress )
-G0 Z150 ( Send Z axis to bottom of machine )
-M18 ( Disable steppers )
-M109 S0 T0 ( Cool down the build platform )
-M104 S0 T0 ( Cool down the Right Extruder )
-M104 S0 T1 ( Cool down the Left Extruder )
-G162 X Y F2500 ( Home XY endstops )
-M18 ( Disable stepper motors )
-M70 P5 ( We <3 Making Things!)
-M72 P1  ( Play Ta-Da song )
-(*********end End.gcode*******)
+        <!-- Dual_Head_end.gcode -->
+        (******* End.gcode*******)
+        M73 P100 ( End  build progress )
+        G0 Z150 ( Send Z axis to bottom of machine )
+        M18 ( Disable steppers )
+        M109 S0 T0 ( Cool down the build platform )
+        M104 S0 T0 ( Cool down the Right Extruder )
+        M104 S0 T1 ( Cool down the Left Extruder )
+        G162 X Y F2500 ( Home XY endstops )
+        M18 ( Disable stepper motors )
+        M70 P5 ( We <3 Making Things!)
+        M72 P1  ( Play Ta-Da song )
+        (*********end End.gcode*******)
 
-<!-- Dual_Head_start.gcode -->
-(**** start.gcode for The Replicator, dual head ****)
-M103 (disable RPM)
-M73 P0 (enable build progress)
-G21 (set units to mm)
-G90 (set positioning to absolute)
-M109 S110 T0 (set HBP temperature)
-M104 S220 T0 (set extruder temperature)
-(**** begin homing ****)
-G162 X Y F2500 (home XY axes maximum)
-G161 Z F1100 (home Z axis minimum)
-G92 Z-5 (set Z to -5)
-G1 Z0.0 (move Z to "0")
-G161 Z F100 (home Z axis minimum)
-M132 X Y Z A B (Recall stored home offsets for XYZAB axis)
-(**** end homing ****)
-G1 X-110.5 Y-74 Z150 F3300.0 (move to waiting position)
-G130 X20 Y20 Z20 A20 B20 (Lower stepper Vrefs while heating)
-M6 T0 (wait for toolhead, and HBP to reach temperature)
-G130 X127 Y127 Z40 A127 B127 (Set Stepper motor Vref to defaults)
-M108 R3.0 T0
-G0 X-110.5 Y-74 (Position Nozzle)
-G0 Z0.6      (Position Height)
-M108 R5.0    (Set Extruder Speed)
-M101         (Start Extruder)
-G4 P2000     (Create Anchor)
-(**** end of start.gcode ****)
+        <!-- Dual_Head_start.gcode -->
+        (**** start.gcode for The Replicator, dual head ****)
+        M103 (disable RPM)
+        M73 P0 (enable build progress)
+        G21 (set units to mm)
+        G90 (set positioning to absolute)
+        M109 S110 T0 (set HBP temperature)
+        M104 S220 T0 (set extruder temperature)
+        (**** begin homing ****)
+        G162 X Y F2500 (home XY axes maximum)
+        G161 Z F1100 (home Z axis minimum)
+        G92 Z-5 (set Z to -5)
+        G1 Z0.0 (move Z to "0")
+        G161 Z F100 (home Z axis minimum)
+        M132 X Y Z A B (Recall stored home offsets for XYZAB axis)
+        (**** end homing ****)
+        G1 X-110.5 Y-74 Z150 F3300.0 (move to waiting position)
+        G130 X20 Y20 Z20 A20 B20 (Lower stepper Vrefs while heating)
+        M6 T0 (wait for toolhead, and HBP to reach temperature)
+        G130 X127 Y127 Z40 A127 B127 (Set Stepper motor Vref to defaults)
+        M108 R3.0 T0
+        G0 X-110.5 Y-74 (Position Nozzle)
+        G0 Z0.6      (Position Height)
+        M108 R5.0    (Set Extruder Speed)
+        M101         (Start Extruder)
+        G4 P2000     (Create Anchor)
+        (**** end of start.gcode ****)
 
-<!-- Single_Head_end.gcode -->
-(******* End.gcode*******)
-M73 P100 ( End  build progress )
-G0 Z150 ( Send Z axis to bottom of machine )
-M18 ( Disable steppers )
-M104 S0 T0 ( Cool down the Right Extruder )
-M109 S0 T0 ( Cool down the platform)
-G162 X Y F2500 ( Home XY endstops )
-M18 ( Disable stepper motors )
-M70 P5 ( We <3 Making Things!)
-M72 P1  ( Play Ta-Da song )
-(*********end End.gcode*******)
+        <!-- Single_Head_end.gcode -->
+        (******* End.gcode*******)
+        M73 P100 ( End  build progress )
+        G0 Z150 ( Send Z axis to bottom of machine )
+        M18 ( Disable steppers )
+        M104 S0 T0 ( Cool down the Right Extruder )
+        M109 S0 T0 ( Cool down the platform)
+        G162 X Y F2500 ( Home XY endstops )
+        M18 ( Disable stepper motors )
+        M70 P5 ( We <3 Making Things!)
+        M72 P1  ( Play Ta-Da song )
+        (*********end End.gcode*******)
 
-<!-- Single_Head_start.gcode -->
-(**** start.gcode for The Replicator, single head ****)
-M103 (disable RPM)
-M73 P0 (enable build progress)
-G21 (set units to mm)
-G90 (set positioning to absolute)
-M109 S110 T0 (set HBP temperature)
-M104 S220 T0 (set extruder temperature)
-(**** begin homing ****)
-G162 X Y F2500 (home XY axes maximum)
-G161 Z F1100 (home Z axis minimum)
-G92 Z-5 (set Z to -5)
-G1 Z0.0 (move Z to "0")
-G161 Z F100 (home Z axis minimum)
-M132 X Y Z A B (Recall stored home offsets for XYZAB axis)
-(**** end homing ****)
-G1 X-110.5 Y-74 Z150 F3300.0 (move to waiting position)
-G130 X20 Y20 Z20 A20 B20 (Lower stepper Vrefs while heating)
-M6 T0 (wait for toolhead, and HBP to reach temperature)
-G130 X127 Y127 Z40 A127 B127 (Set Stepper motor Vref to defaults)
-M108 R3.0 T0
-G0 X-110.5 Y-74 (Position Nozzle)
-G0 Z0.6      (Position Height)
-M108 R5.0    (Set Extruder Speed)
-M101         (Start Extruder)
-G4 P2000     (Create Anchor)
-(**** end of start.gcode ****)
+        <!-- Single_Head_start.gcode -->
+        (**** start.gcode for The Replicator, single head ****)
+        M103 (disable RPM)
+        M73 P0 (enable build progress)
+        G21 (set units to mm)
+        G90 (set positioning to absolute)
+        M109 S110 T0 (set HBP temperature)
+        M104 S220 T0 (set extruder temperature)
+        (**** begin homing ****)
+        G162 X Y F2500 (home XY axes maximum)
+        G161 Z F1100 (home Z axis minimum)
+        G92 Z-5 (set Z to -5)
+        G1 Z0.0 (move Z to "0")
+        G161 Z F100 (home Z axis minimum)
+        M132 X Y Z A B (Recall stored home offsets for XYZAB axis)
+        (**** end homing ****)
+        G1 X-110.5 Y-74 Z150 F3300.0 (move to waiting position)
+        G130 X20 Y20 Z20 A20 B20 (Lower stepper Vrefs while heating)
+        M6 T0 (wait for toolhead, and HBP to reach temperature)
+        G130 X127 Y127 Z40 A127 B127 (Set Stepper motor Vref to defaults)
+        M108 R3.0 T0
+        G0 X-110.5 Y-74 (Position Nozzle)
+        G0 Z0.6      (Position Height)
+        M108 R5.0    (Set Extruder Speed)
+        M101         (Start Extruder)
+        G4 P2000     (Create Anchor)
+        (**** end of start.gcode ****)
 
