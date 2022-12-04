@@ -14,6 +14,11 @@ avrdude -p m1280 -c usbasp -e -U flash:w:firmware.hex
 - single stepper for Y, for both sides, so with anything pulling on extduder bay it will mis steps. (like the PFTE tupes!)
 
 
+
+# WARNING !!
+firware is adjuded that the Y MAX LIMIT SWITCH is in the front of the machine, and not on its orginal place!
+
+
 # Backup of Sailfish settings:
 
 ```xml
