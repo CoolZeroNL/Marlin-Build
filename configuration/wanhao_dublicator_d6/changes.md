@@ -87,3 +87,8 @@ https://teachingtechyt.github.io/calibration.html#esteps
         #define DEFAULT_bedKp 30.02
         #define DEFAULT_bedKi 5.16
         #define DEFAULT_bedKd 116.41
+
+# Strange errors:
+
+## busy: processing
+Unknown command: "P0 B2G1 X92.000 Y84.500 E0.8042"
