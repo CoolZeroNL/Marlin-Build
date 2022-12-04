@@ -132,6 +132,8 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             platformio run -d ${REPO_NAME}/
             success=$?
 
+            echo "$success"
+
             if [[ ${success} -eq 0 ]]; then
                 currentpath=`pwd`
                 OUTPUT_DIR=${currentpath}/compiled/$machinename/$BOARD
