@@ -1040,7 +1040,7 @@
 // Almost all printers will be using one per axis. Probes will use one or more of the
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
 //#define USE_XMIN_PLUG
-//#define USE_YMIN_PLUG
+#define USE_YMIN_PLUG         // becasue we checge the limit switch
 #define USE_ZMIN_PLUG
 //#define USE_IMIN_PLUG
 //#define USE_JMIN_PLUG
@@ -1049,7 +1049,7 @@
 //#define USE_VMIN_PLUG
 //#define USE_WMIN_PLUG
 #define USE_XMAX_PLUG
-#define USE_YMAX_PLUG
+// #define USE_YMAX_PLUG    // see USE_YMIN_PLUG
 //#define USE_ZMAX_PLUG
 //#define USE_IMAX_PLUG
 //#define USE_JMAX_PLUG
@@ -1696,7 +1696,7 @@
 // :[-1,1]
 #define X_HOME_DIR 1
 // #define Y_HOME_DIR 1
-#define Y_HOME_DIR -1     // Moved the limit switch to the front of the machine
+#define Y_HOME_DIR -1     // Move the limit switch to the front of the machine
 #define Z_HOME_DIR -1
 //#define I_HOME_DIR -1
 //#define J_HOME_DIR -1
@@ -1713,12 +1713,10 @@
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
-// #define Y_MIN_POS 0
-#define Y_MIN_POS Y_BED_SIZE   // because of the movement of the limit switch to the front of the machine
+#define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS 0            // because of the movement of the limit switch to the front of the machine
-// #define Y_MAX_POS Y_BED_SIZE
+#define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 150
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
