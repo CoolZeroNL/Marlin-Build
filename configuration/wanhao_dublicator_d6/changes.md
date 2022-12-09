@@ -92,3 +92,19 @@ https://teachingtechyt.github.io/calibration.html#esteps
 
 ## busy: processing
 Unknown command: "P0 B2G1 X92.000 Y84.500 E0.8042"
+
+Unknown command: "Gok P0 248 Y100.651 E0.0028 F1750"
+WARNING: Firmware unresponsive.  Attempting to force continue...
+
+WARNING: Firmware unresponsive.  Attempting to force continue...
+Unknown command: "ok P142 Y134.696 E0.0673 F2625
+
+Attempting connection at \\.\COM5...
+READ: start
+  Connected to machine!
+Last Updated: 2022-11-15 | Author: (CoolZeroNL, default config)
+Compiled: Nov 30 2022
+Free Memory: 2928  PlannerBufferBytes: 1344
+V87 stored settings retrieved (626 bytes; crc 46077)
+SD card released
+Unknown command: "MeM105"

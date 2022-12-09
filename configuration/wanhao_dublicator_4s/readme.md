@@ -4,15 +4,32 @@ Use the atmega 1280 ISP pin headers on the mainboard
 ![This is an image](usbasp_atmega1280.jpg)
 
 
-## Flash command: 
+## Marlin Flash command: 
 ``` 
 avrdude -p m1280 -c usbasp -e -U flash:w:firmware.hex
 ```
+
+## Orsinal Sailfish
+```
+# one 
+# Please connect USBASP to motherbaord  8U2  ICSP1
+avrdude -p at90usb82 -F -P usb -c usbasp -U lock:w:0x0F:m -U efuse:w:0xF4:m -U hfuse:w:0xD9:m -U lfuse:w:0xff:m -Uflash:w:Makerbot-usbserial.hex
+
+# two
+# Connect USBasp to 1280 ICSP2
+avrdude -p m1280 -F -P usb -c usbasp -U flash:w:ATmegaBOOT_168_atmega1280.hex -U lfuse:w:0xff:m -U hfuse:w:0xD8:m -U efuse:w:0xF5:m -U lock:w:0x3F:m
+```
+
+
+# Reset button
+the reset button will remove the bootloader.. so reflashing needed.
 
 
 # Comments
 - single stepper for Y, for both sides, so with anything pulling on extduder bay it will mis steps. (like the PFTE tupes!)
 
+# changes
+- babysteps enabled.
 
 
 # WARNING !!

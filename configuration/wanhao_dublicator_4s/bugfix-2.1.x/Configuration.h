@@ -21,7 +21,7 @@
  */
 #pragma once
 
-// #define CONFIG_EXAMPLES_DIR "Wanhao/Duplicator 4S"
+#define CONFIG_EXAMPLES_DIR "Wanhao/Duplicator 4S"
 
 /**
  * Configuration.h
@@ -38,9 +38,6 @@
  * Advanced settings can be found in Configuration_adv.h
  */
 #define CONFIGURATION_H_VERSION 02010200
-
-//debug
-// #define IGNORE_THERMOCOUPLE_ERRORS
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -65,7 +62,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(CoolZeroNL, default config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "MakerHouse" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -140,7 +137,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Wanhao/Duplicator 4S"
+#define CUSTOM_MACHINE_NAME "CreatorPro 2x"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -739,7 +736,7 @@
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  * @section bed temp
  */
-// #define PIDTEMPBED
+//#define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
 
@@ -815,8 +812,8 @@
   #define PID_FUNCTIONAL_RANGE 15 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 
-  // #define PID_EDIT_MENU           // Add PID editing to the "Advanced Settings" menu. (~700 bytes of flash)
-  // #define PID_AUTOTUNE_MENU       // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of flash)
+  //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of flash)
+  //#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of flash)
 #endif
 
 // @section safety
@@ -855,10 +852,10 @@
  * details can be tuned in Configuration_adv.h
  */
 
-#define THERMAL_PROTECTION_HOTENDS    // Enable thermal protection for all extruders
-#define THERMAL_PROTECTION_BED        // Enable thermal protection for the heated bed
-//#define THERMAL_PROTECTION_CHAMBER  // Enable thermal protection for the heated chamber
-#define THERMAL_PROTECTION_COOLER     // Enable thermal protection for the laser cooling
+#define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
+#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
+//#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
+#define THERMAL_PROTECTION_COOLER  // Enable thermal protection for the laser cooling
 
 //===========================================================================
 //============================= Mechanical Settings =========================
@@ -884,7 +881,7 @@
 //#define POLARGRAPH
 #if ENABLED(POLARGRAPH)
   #define POLARGRAPH_MAX_BELT_LEN 1035.0
-  #define POLAR_SEGMENTS_PER_SECOND 5
+  #define DEFAULT_SEGMENTS_PER_SECOND 5
 #endif
 
 // @section delta
@@ -896,28 +893,26 @@
   // Make delta curves from many straight lines (linear interpolation).
   // This is a trade-off between visible corners (not enough segments)
   // and processor overload (too many expensive sqrt calls).
-  #define DELTA_SEGMENTS_PER_SECOND 200
+  #define DEFAULT_SEGMENTS_PER_SECOND 200
 
   // After homing move down to a height where XY movement is unconstrained
   //#define DELTA_HOME_TO_SAFE_ZONE
 
   // Delta calibration menu
-  // uncomment to add three points calibration menu option.
+  // Add three-point calibration to the MarlinUI menu.
   // See http://minow.blogspot.com/index.html#4918805519571907051
   //#define DELTA_CALIBRATION_MENU
 
-  // uncomment to add G33 Delta Auto-Calibration (Enable EEPROM_SETTINGS to store results)
+  // G33 Delta Auto-Calibration. Enable EEPROM_SETTINGS to store results.
   //#define DELTA_AUTO_CALIBRATION
 
-  // NOTE NB all values for DELTA_* values MUST be floating point, so always have a decimal point in them
-
   #if ENABLED(DELTA_AUTO_CALIBRATION)
-    // set the default number of probe points : n*n (1 -> 7)
+    // Default number of probe points : n*n (1 -> 7)
     #define DELTA_CALIBRATION_DEFAULT_POINTS 4
   #endif
 
   #if EITHER(DELTA_AUTO_CALIBRATION, DELTA_CALIBRATION_MENU)
-    // Set the steprate for papertest probing
+    // Step size for paper-test probing
     #define PROBE_MANUALLY_STEP 0.05      // (mm)
   #endif
 
@@ -962,7 +957,7 @@
 //#define MP_SCARA
 #if EITHER(MORGAN_SCARA, MP_SCARA)
   // If movement is choppy try lowering this value
-  #define SCARA_SEGMENTS_PER_SECOND 200
+  #define DEFAULT_SEGMENTS_PER_SECOND 200
 
   // Length of inner and outer support arms. Measure arm lengths precisely.
   #define SCARA_LINKAGE_1 150       // (mm)
@@ -998,18 +993,18 @@
 // Enable for TPARA kinematics and configure below
 //#define AXEL_TPARA
 #if ENABLED(AXEL_TPARA)
-  #define DEBUG_ROBOT_KINEMATICS
-  #define ROBOT_SEGMENTS_PER_SECOND 200
+  #define DEBUG_TPARA_KINEMATICS
+  #define DEFAULT_SEGMENTS_PER_SECOND 200
 
   // Length of inner and outer support arms. Measure arm lengths precisely.
-  #define ROBOT_LINKAGE_1 120       // (mm)
-  #define ROBOT_LINKAGE_2 120       // (mm)
+  #define TPARA_LINKAGE_1 120       // (mm)
+  #define TPARA_LINKAGE_2 120       // (mm)
 
   // SCARA tower offset (position of Tower relative to bed zero position)
   // This needs to be reasonably accurate as it defines the printbed position in the SCARA space.
-  #define ROBOT_OFFSET_X    0       // (mm)
-  #define ROBOT_OFFSET_Y    0       // (mm)
-  #define ROBOT_OFFSET_Z    0       // (mm)
+  #define TPARA_OFFSET_X    0       // (mm)
+  #define TPARA_OFFSET_Y    0       // (mm)
+  #define TPARA_OFFSET_Z    0       // (mm)
 
   #define SCARA_FEEDRATE_SCALING  // Convert XY feedrate from mm/s to degrees/s on the fly
 
@@ -1182,7 +1177,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 20, 100 }
+#define DEFAULT_MAX_FEEDRATE          { 250, 250, 20, 100 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1195,7 +1190,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 800, 800, 100, 5000 }
+#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 5000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1287,7 +1282,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-// #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
 //#define USE_PROBE_FOR_Z_HOMING
@@ -1654,7 +1649,7 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR true
-#define INVERT_Y_DIR false    // JHG
+#define INVERT_Y_DIR true
 #define INVERT_Z_DIR true
 //#define INVERT_I_DIR false
 //#define INVERT_J_DIR false
@@ -1678,16 +1673,16 @@
 // @section homing
 
 //#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed. Also enable HOME_AFTER_DEACTIVATE for extra safety.
-// #define HOME_AFTER_DEACTIVATE   // Require rehoming after steppers are deactivated. Also enable NO_MOTION_BEFORE_HOMING for extra safety.
+//#define HOME_AFTER_DEACTIVATE   // Require rehoming after steppers are deactivated. Also enable NO_MOTION_BEFORE_HOMING for extra safety.
 
 /**
  * Set Z_IDLE_HEIGHT if the Z-Axis moves on its own when steppers are disabled.
  *  - Use a low value (i.e., Z_MIN_POS) if the nozzle falls down to the bed.
  *  - Use a large value (i.e., Z_MAX_POS) if the bed falls down, away from the nozzle.
  */
-//#define Z_IDLE_HEIGHT Z_MAX_POS
+#define Z_IDLE_HEIGHT Z_MAX_POS
 
-#define Z_HOMING_HEIGHT  0      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+//#define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
 //#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
@@ -1714,8 +1709,8 @@
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
+#define X_MAX_POS 265
+#define Y_MAX_POS 150
 #define Z_MAX_POS 150
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -2186,11 +2181,11 @@
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
 #define EEPROM_SETTINGS       // Persistent storage with M500 and M501
-//#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
+#define DISABLE_M503          // Saves ~2700 bytes of flash. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
-  //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
+  #define EEPROM_AUTO_INIT    // Init EEPROM automatically on any errors.
   //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
@@ -2224,14 +2219,14 @@
 // Preheat Constants - Up to 10 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 210
+#define PREHEAT_1_TEMP_HOTEND 200
 #define PREHEAT_1_TEMP_BED     50
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "ABS"
-#define PREHEAT_2_TEMP_HOTEND 230
-#define PREHEAT_2_TEMP_BED     90
+#define PREHEAT_2_TEMP_HOTEND 220
+#define PREHEAT_2_TEMP_BED    100
 #define PREHEAT_2_TEMP_CHAMBER 35
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
@@ -2477,7 +2472,7 @@
  *
  * Use CRC checks and retries on the SD communication.
  */
-// #define SD_CHECK_AND_RETRY
+#define SD_CHECK_AND_RETRY
 
 /**
  * LCD Menu Items
@@ -2550,7 +2545,7 @@
 //
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
 //
-#define INDIVIDUAL_AXIS_HOMING_MENU
+//#define INDIVIDUAL_AXIS_HOMING_MENU
 //#define INDIVIDUAL_AXIS_HOMING_SUBMENU
 
 //
@@ -2559,7 +2554,7 @@
 // If you have a speaker that can produce tones, enable it here.
 // By default Marlin assumes you have a buzzer with a fixed frequency.
 //
-#define SPEAKER
+//#define SPEAKER
 
 //
 // The duration and frequency for the UI feedback sound.
@@ -2568,8 +2563,8 @@
 // Note: Test audio output with the G-Code:
 //  M300 S<frequency Hz> P<duration ms>
 //
-#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 5
-#define LCD_FEEDBACK_FREQUENCY_HZ 1000
+//#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
+//#define LCD_FEEDBACK_FREQUENCY_HZ 5000
 
 //=============================================================================
 //======================== LCD / Controller Selection =========================
