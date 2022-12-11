@@ -1105,7 +1105,11 @@
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+// #define Z_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.     // JHG
+
+
+
 #define I_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define J_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define K_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -2080,7 +2084,7 @@
 // For DELTA this is the top-center of the Cartesian print volume.
 //#define MANUAL_X_HOME_POS 0
 //#define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 0
+// #define MANUAL_Z_HOME_POS 0     //JHG
 //#define MANUAL_I_HOME_POS 0
 //#define MANUAL_J_HOME_POS 0
 //#define MANUAL_K_HOME_POS 0
