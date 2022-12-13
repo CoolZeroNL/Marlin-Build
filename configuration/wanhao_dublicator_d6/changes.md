@@ -108,3 +108,18 @@ Free Memory: 2928  PlannerBufferBytes: 1344
 V87 stored settings retrieved (626 bytes; crc 46077)
 SD card released
 Unknown command: "MeM105"
+
+Unknown command: "ok P45.775 Y68.912 F6600"
+busy: processing
+Unknown command: "1 X184.001 Y103.705 E0.0110 F2800"
+
+Unknown command: "ok P3 B482 Y65.702 E0.0072 F1750"
+Unknown command: "ok P0 B714 Y143.023 E0.1339 F3500"
+Unknown command: "P0 B3"
+Unknown command: "4.430 Y50.149 E0.0046 F2625"
+Unknown command: "0 B2"
+Unknown command: "92.505 Y16.183 E0.0102"
+Unknown command: "9"
+Unknown command: "ok P0 000"
+Unknown command: "57"
+Unknown command: "ok P0816 Y45.279 E0.1075"
