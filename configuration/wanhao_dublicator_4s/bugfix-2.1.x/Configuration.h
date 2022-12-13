@@ -1694,8 +1694,8 @@
 // :[-1,1]
 #define X_HOME_DIR 1
 #define Y_HOME_DIR 1
-#define Z_HOME_DIR 1
-// #define Z_HOME_DIR -1  // JHG
+// #define Z_HOME_DIR 1 // --need z max plug
+#define Z_HOME_DIR -1  // JHG 
 //#define I_HOME_DIR -1
 //#define J_HOME_DIR -1
 //#define K_HOME_DIR -1
