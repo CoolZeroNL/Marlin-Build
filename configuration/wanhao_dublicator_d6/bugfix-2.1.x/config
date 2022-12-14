@@ -1,5 +1,5 @@
 echo "Config File loaded"
-BUILD=true
+BUILD=false
 #
 REPO_URL="https://github.com/MarlinFirmware/Marlin.git"
 #
