@@ -670,9 +670,15 @@
     #define DEFAULT_Ki_LIST {   1.22,   1.22 }
     #define DEFAULT_Kd_LIST {  82.05,  82.05 }
   #else
-    #define DEFAULT_Kp  20.03
-    #define DEFAULT_Ki   1.22
-    #define DEFAULT_Kd  82.05
+    // #define DEFAULT_Kp  20.03
+    // #define DEFAULT_Ki   1.22
+    // #define DEFAULT_Kd  82.05
+
+    //JHG S4 Links
+    #define DEFAULT_Kp 12.59
+    #define DEFAULT_Ki 0.47
+    #define DEFAULT_Kd 84.06
+
   #endif
 #endif
 
