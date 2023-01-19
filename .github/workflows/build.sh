@@ -128,8 +128,9 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
             # Custom Pins file
             ls -la
+            ls -la Marlin
             ls -la $machine/${USE_CONFIG_VERSION}
-            # cp $machine/${USE_CONFIG_VERSION}/pins*.h ./${REPO_NAME}/Marlin/Marlin/src/pins/mega/pins_MIGHTYBOARD_REVE.h
+            cp $machine/${USE_CONFIG_VERSION}/pins*.h ./${REPO_NAME}/Marlin/Marlin/src/pins/mega/
             # ls -la ./${REPO_NAME}/Marlin/Marlin/src/pins/mega/
             # cat ./${REPO_NAME}/Marlin/Marlin/src/pins/mega/pins_MIGHTYBOARD_REVE.h
 
