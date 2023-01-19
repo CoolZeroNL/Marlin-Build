@@ -135,7 +135,7 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             cat ./${REPO_NAME}/Marlin/src/pins/mega/pins_MIGHTYBOARD_REVE.h
 
 
-            exit 1
+            exit 1 
 
             FW_EXTENSION=hex
 
