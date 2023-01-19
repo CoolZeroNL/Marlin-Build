@@ -125,17 +125,8 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             # Change the default board with value in environment variable
             sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./${REPO_NAME}/platformio.ini
 
-
             # Custom Pins file
-            ls -la
-            ls -la Marlin
-            ls -la $machine/${USE_CONFIG_VERSION}
             cp $machine/${USE_CONFIG_VERSION}/pins*.h ./${REPO_NAME}/Marlin/src/pins/mega/
-            ls -la ./${REPO_NAME}/Marlin/src/pins/mega/
-            cat ./${REPO_NAME}/Marlin/src/pins/mega/pins_MIGHTYBOARD_REVE.h
-
-
-            exit 1  
 
             FW_EXTENSION=hex
 
