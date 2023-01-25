@@ -7,6 +7,7 @@ Use the atmega 1280 ISP pin headers on the mainboard
 ## Marlin Flash command: 
 ``` 
 avrdude -p m1280 -c usbasp -e -U flash:w:firmware.hex
+avrdude -p m1280 -c usbasp -e -U flash:w:firmware_c16d365_c16d3655bf_wanhao_dublicator_4s.hex
 ```
 
 # Building @ platformm.io
@@ -26,6 +27,9 @@ avrdude -p m1280 -F -P usb -c usbasp -U flash:w:ATmegaBOOT_168_atmega1280.hex -U
 # WARNING !!
 firware is adjuded that the Y MAX LIMIT SWITCH is in the front of the machine, and not on its orginal place!
 
+
+# USer Fans
+NUM_M106_FANS is set to 1, and on build is a custom pins file used!
 
 # Backup of Sailfish settings:
 
