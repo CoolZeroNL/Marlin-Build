@@ -232,7 +232,7 @@
 #define EXTRUDERS 1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
-#define DEFAULT_NOMINAL_FILAMENT_DIA 3
+#define DEFAULT_NOMINAL_FILAMENT_DIA 3  // JHG
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 //#define SINGLENOZZLE
@@ -669,9 +669,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  22.20
-    #define DEFAULT_Ki   1.08
-    #define DEFAULT_Kd 114.00
+    #define DEFAULT_Kp  25.60
+    #define DEFAULT_Ki   2.28
+    #define DEFAULT_Kd 72.84
   #endif
 #endif
 
@@ -1225,7 +1225,7 @@
  */
 // #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }    // Stock Creality
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 415 }    // Creality with Bondtech extruder
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 495 }      // Bulldog XL extruder    // JHG
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 485 }      // Bulldog XL extruder              // JHG
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
@@ -1246,6 +1246,7 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 #define DEFAULT_MAX_ACCELERATION      { 300, 300, 100, 5000 }
+// #define DEFAULT_MAX_ACCELERATION      { 300, 300, 100, 1000 } // --> org // JHG
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1280,8 +1281,10 @@
  */
 //#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK  5.0
-  #define DEFAULT_YJERK  5.0
+  // #define DEFAULT_XJERK  5.0  // JHG
+  #define DEFAULT_XJERK  10.0  // JHG
+  #define DEFAULT_YJERK  10.0  // JHG
+  // #define DEFAULT_YJERK  5.0  // JHG
   #define DEFAULT_ZJERK  0.4
   //#define DEFAULT_IJERK  0.3
   //#define DEFAULT_JJERK  0.3
@@ -1371,13 +1374,13 @@
  * Use G29 repeatedly, adjusting the Z height at each point with movement commands
  * or (with LCD_BED_LEVELING) the LCD controller.
  */
-#define PROBE_MANUALLY
+// #define PROBE_MANUALLY
 
 /**
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE     // JHG
 
 /**
  * Use the nozzle as the probe, as with a conductive
@@ -1546,11 +1549,11 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 34.3, 0, 0 }  // JHG
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10
+#define PROBING_MARGIN 35 // JHG
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (133*60)
@@ -1947,7 +1950,7 @@
  * these options to restore the prior leveling state or to always enable
  * leveling immediately after G28.
  */
-//#define RESTORE_LEVELING_AFTER_G28
+#define RESTORE_LEVELING_AFTER_G28  // JHG
 //#define ENABLE_LEVELING_AFTER_G28
 
 /**
