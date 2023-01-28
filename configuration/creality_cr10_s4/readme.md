@@ -8,6 +8,8 @@ Default filament dia is set to 3 !
 
 ## Flash a Bootloader
 <!-- https://www.reddit.com/r/CR10/comments/nkfbtq/cr10_usbtinyisp_arduinoisp_usb_bootloader/    -->
+<!-- https://support.th3dstudio.com/helpcenter/creality-v2-0-v2-1-v2-2-board-atmel-2560-icsp-programming-header-pinout/ -->
+
 These boards require a bootloader to be flashed before you can upload firmware to the board. This is a quick process and is only needed to be done once. After the bootloader is installed you will not need to update it again.
 
 What you will need:
@@ -41,27 +43,19 @@ Assemble boot loader components
 
 **In ArduinoISP:**
 
-- Navigate to `File` > select `Examples` > select `ArduinoISP` > select `ArduinoISP`
-
-- Navigate to `File` > select `Preferences` > Find `Additional Boards Manager URLs` and paste `https://raw.githubusercontent.com/Lauszus/Sanguino/master/package_lauszus_sanguino_index.json`
-
-- Select `Ok` to close the window
+- Plug in the USBasp
 
 - Navigate to `Tools` > select `Board:` > select `Boards Manager`
 
-- In the `Filter your search...` menu search for `Sanguino`, install, and select `Close`
+- In the `Filter your search...` menu search for `Arduino AVR Boards`, install, and select `Close`
 
-- Navigate to `Tools` > select `Board:` > select `Sanguino-avr` > select `Sanguino`
+- Navigate to `Tools` > select `Board:` > select `Arduino AVR Boards` > select `Arduino MEGA 2560`
 
-- Navigate to `Tools` > select `Processor:` > select `ATmega1284 or AT mega 1284P (16MHz)`
+- Navigate to `Tools` > select `Processor:` > select `Arduino MEGA 2560`
 
 - Navigate to `Tools` > select `Programmer:` -> select `USBasp`
 
-- Using the computer USB ports, plug in the USBasp and connect your USB cord to the CR-10 USB port
-
-**In Arduino**: 
-
-- Navigate to `Sketch` and select `Upload Using Programmer`
+- Navigate to `Tools` and select `Burn Bootloader`
 
 - Bootloader installed!
 
