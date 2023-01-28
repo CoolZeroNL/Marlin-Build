@@ -4,8 +4,75 @@ Default filament dia is set to 3 !
 # With inductive probe !
 #define FIX_MOUNTED_PROBE
 
+# How to flash
+
+## Flash a Bootloader
+<!-- https://www.reddit.com/r/CR10/comments/nkfbtq/cr10_usbtinyisp_arduinoisp_usb_bootloader/    -->
+These boards require a bootloader to be flashed before you can upload firmware to the board. This is a quick process and is only needed to be done once. After the bootloader is installed you will not need to update it again.
+
+What you will need:
+
+- USBasp
+- Download Arduino IDE (ISP) https://www.arduino.cc/en/software
+- Download Zadig https://zadig.akeo.ie/
+
+Set up:
+
+Assemble boot loader components
+
+2. Disconnect the primary power cable and the two black power cables connected by threaded couplings from the back of the power supply
+![This is an image](2.jpg)
+
+3. Open CR-10 control box by removing the 4 screws on the bottom of the control box
+
+4. Free the power supply by removing the 4 screws found on the right-hand side of the control box - Be careful when pulling out the power supply, if you pull too far, you may dislodge the short cables it is attached to.
+
+5. Locate the motherboard and pull gently to remove the ribbon cable that connects to the LCD screen
+![This is an image](3.png)
+
+6. Plug in the boot loader and make sure the red stripe on the ribbon cable is pointed to the left.
+![This is an image](1.png)
+
+7. Launch Zadig to download the required drivers
+
+- Select "USBasp" from the dropdown menu
+- Use the arrows to select "WinUSB (v6.1.7600.16385)"
+- Install the driver
+
+**In ArduinoISP:**
+
+- Navigate to `File` > select `Examples` > select `ArduinoISP` > select `ArduinoISP`
+
+- Navigate to `File` > select `Preferences` > Find `Additional Boards Manager URLs` and paste `https://raw.githubusercontent.com/Lauszus/Sanguino/master/package_lauszus_sanguino_index.json`
+
+- Select `Ok` to close the window
+
+- Navigate to `Tools` > select `Board:` > select `Boards Manager`
+
+- In the `Filter your search...` menu search for `Sanguino`, install, and select `Close`
+
+- Navigate to `Tools` > select `Board:` > select `Sanguino-avr` > select `Sanguino`
+
+- Navigate to `Tools` > select `Processor:` > select `ATmega1284 or AT mega 1284P (16MHz)`
+
+- Navigate to `Tools` > select `Programmer:` -> select `USBasp`
+
+- Using the computer USB ports, plug in the USBasp and connect your USB cord to the CR-10 USB port
+
+**In Arduino**: 
+
+- Navigate to `Sketch` and select `Upload Using Programmer`
+
+- Bootloader installed!
+
+## Firmware
+
+- 
+
 
 # backup
+https://forums.creality3dofficial.com/download/cr-series/cr-10-s4/
+
 ```
 G21    ; Units in mm
 M149 C ; Units in Celsius
