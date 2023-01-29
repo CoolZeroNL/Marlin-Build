@@ -22,3 +22,9 @@ M155 S3             ; reset temperature reporting
 M500                  ; store mesh in EEPROM
 ```
 
+
+M104 S[extruder[new_tool]_temperature] T[new_tool] 	; warm extruder
+M140 S[bed[new_tool] _temperature] 		; warm bed
+
+M109 S[extruder[new_tool]_temperature] T[new_tool] 	; wait extruder to reach temp
+M190 S[bed[new_tool] _temperature] 		; wait bed to reach temp
