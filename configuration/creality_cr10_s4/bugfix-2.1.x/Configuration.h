@@ -1555,7 +1555,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 100 // JHG
+#define PROBING_MARGIN 0 // JHG -> adusted the bed size, and Y limit switch moved to the front by x mm
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (133*60)
@@ -1764,7 +1764,7 @@
 
 // The size of the printable area
 #define X_BED_SIZE 400
-#define Y_BED_SIZE 400
+#define Y_BED_SIZE 360  // Bed blamps... should be 400
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0

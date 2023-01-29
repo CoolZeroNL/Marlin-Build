@@ -1,6 +1,9 @@
 # Filament
 Default filament dia is set to 3 !
 
+# Litmit switches
+Moved the Y limit switch closer, so the 0x0 will be before the front bed clamps, and adjusted the max size of bed so it wont hit the back clamps
+
 # With inductive probe !
 #define FIX_MOUNTED_PROBE
 
