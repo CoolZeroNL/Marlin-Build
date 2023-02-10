@@ -3430,7 +3430,7 @@
   // Use some of the NeoPixel LEDs for static (background) lighting
   #define NEOPIXEL_BKGD_INDEX_FIRST   0 // Index of the first background LED  // JHG
   #define NEOPIXEL_BKGD_INDEX_LAST    0 // Index of the last background LED
-  #define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  // R, G, B, W     // JHG
+  #define NEOPIXEL_BKGD_COLOR { 255, 75, 0, 0 }  // R, G, B, W     // JHG - yellow
   #define NEOPIXEL_BKGD_ALWAYS_ON       // Keep the backlight on when other NeoPixels are off
 #endif
 
