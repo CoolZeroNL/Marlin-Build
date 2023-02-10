@@ -16,16 +16,8 @@ in Configuration.h file
 ``` 
 Enable: #define MKS_MINI_12864_V3
 Enable: #define NEOPIXEL_LED
+Change: #define NEOPIXEL_TYPE NEO_GRBW --> NEO_RGB
 ``` 
 
-## Malin2.0
-Change color by lcd online: Lights -> Light Presets
 
-Gcode set color:
-``` 
-M150 R255 G0 U0 # Red
-M150 R0 G255 U0 # Green
-M150 R0 G0 U255 # Blue
-``` 
-
-Other colors are set according to the value of R G U
+Change color by lcd display on the machine: Lights -> Light Presets
