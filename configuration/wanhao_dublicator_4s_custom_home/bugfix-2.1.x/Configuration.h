@@ -1669,7 +1669,9 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR true       
-#define INVERT_Y_DIR true
+// #define INVERT_Y_DIR true
+#define INVERT_Y_DIR false        // JHG // Limit switch move to the front !
+// #define INVERT_Z_DIR true      // JHG
 #define INVERT_Z_DIR true
 //#define INVERT_I_DIR false
 //#define INVERT_J_DIR false
@@ -1711,6 +1713,7 @@
 // :[-1,1]
 #define X_HOME_DIR 1
 #define Y_HOME_DIR 1
+// #define Z_HOME_DIR 1 // --need z max plug
 #define Z_HOME_DIR -1  // JHG 
 //#define I_HOME_DIR -1
 //#define J_HOME_DIR -1
@@ -1729,9 +1732,11 @@
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
+// #define Z_MIN_POS 160 //JHG
 #define X_MAX_POS 265
 #define Y_MAX_POS 150
-#define Z_MAX_POS 160
+// #define Z_MAX_POS 0 //JHG
+#define Z_MAX_POS 160     //160
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
 //#define J_MIN_POS 0

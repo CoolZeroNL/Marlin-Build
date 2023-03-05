@@ -24,6 +24,10 @@ avrdude -p at90usb82 -F -P usb -c usbasp -U lock:w:0x0F:m -U efuse:w:0xF4:m -U h
 avrdude -p m1280 -F -P usb -c usbasp -U flash:w:ATmegaBOOT_168_atmega1280.hex -U lfuse:w:0xff:m -U hfuse:w:0xD8:m -U efuse:w:0xF5:m -U lock:w:0x3F:m
 ```
 
+# WARNING !!
+firware is adjuded that the Y MAX LIMIT SWITCH is in the front of the machine, and not on its orginal place!
+
+
 # USer Fans
 NUM_M106_FANS is set to 1, and on build is a custom pins file used!
 
