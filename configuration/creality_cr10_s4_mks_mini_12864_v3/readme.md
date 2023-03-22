@@ -34,8 +34,8 @@ G1 F60 Z0   // Move nozzle to true 0 offset
 M211 S0     // Switch off soft endstops
 ```
 
-Move nozzle towards bed slowly until the paper can barely move
-Take note of the Z on the printer display (take that number and add the measurment of the calibration sheet or device used)
+- Move nozzle towards bed slowly until the paper can barely move
+- Take note of the Z on the printer display (take that number and add the measurment of the calibration sheet or device used)
 
 ```
 M851 Z X.XX 
