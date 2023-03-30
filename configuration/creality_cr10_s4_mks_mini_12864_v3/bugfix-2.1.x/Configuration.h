@@ -736,7 +736,7 @@
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  * @section bed temp
  */
-//#define PIDTEMPBED
+#define PIDTEMPBED  // JHG --> disabled big-bang will not be able to go higher then 75 degree
 
 //#define BED_LIMIT_SWITCHING
 
