@@ -58,8 +58,6 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
 
             git clone $REPO_URL
 
-
-
             # Override MarlinFirmware version using branch or tag
             if [[ $USE_LATEST_TAG == true ]] && [[ -z $USE_TAG ]] && [[ -z $USE_BRANCH ]]; then
 
@@ -144,6 +142,9 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 echo "$OUTPUT_DIR"
 
                 export_filename="firmware_${USE_BRANCH}${USE_TAG}${USE_COMMIT}_${git_commit_hash}_${machinename}"
+
+                # Write out config changes (find //JHG )
+                grep "//JHG" $machine/${USE_CONFIG_VERSION}/*.h > $machine/${USE_CONFIG_VERSION}/config_changes.md
 
                 # convert elf -> BIN 
                 ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./${REPO_NAME}/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
