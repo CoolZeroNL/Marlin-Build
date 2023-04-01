@@ -202,14 +202,19 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 cd ../../../../
 
             else
-                printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+                # printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+                echo ""
+                echo -e "${RED}[ERROR]${ENDCOLOR} Build failed!, Check the output above for errors"
+                echo ""
                 exit 1
             fi
 
 
 
         else
-            echo "Building Skippling build: $BUILD"
+            # echo "Building Skippling build: $BUILD"
+            echo -e "${YELLOW}[INFO]${ENDCOLOR} Building Skippling build: $BUILD"
+            echo ""
         fi
 
 
