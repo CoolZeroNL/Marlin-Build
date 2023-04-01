@@ -1,5 +1,5 @@
 echo "Config File loaded"
-BUILD=true                                                                                     # Compile this version or skip it
+BUILD=false                                                                                     # Compile this version or skip it
 #
 REPO_URL="https://github.com/MarlinFirmware/Marlin.git"                                         # url of the git repo
 #

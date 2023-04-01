@@ -118,22 +118,30 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
             fi
 
             # Copy custom Configuration files to Marlin folder 
+            echo -e "${YELLOW}[INFO]${ENDCOLOR} Copy Configuration*.h files" 
             cp $machine/${USE_CONFIG_VERSION}/*.h ./${REPO_NAME}/Marlin/
+            echo ""
 
             # Change the default board with value in environment variable
+            echo -e "${YELLOW}[INFO]${ENDCOLOR} Modify board" 
             sed -i "s/default_envs = .*/default_envs = $BOARD/g" ./${REPO_NAME}/platformio.ini
+            echo ""
 
             # Custom Pins file
+            echo -e "${YELLOW}[INFO]${ENDCOLOR} Copy pins*.h file" 
             cp $machine/${USE_CONFIG_VERSION}/pins*.h ./${REPO_NAME}/Marlin/src/pins/mega/
+            echo ""
 
+            # define extension
             FW_EXTENSION=hex
 
             # Build Marlin firmware 
-            printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
+            # printf "\e[1;35mCompiling Marlin firmware..\e[0m\n\n"
+            echo -e "${YELLOW}[INFO]${ENDCOLOR} Compiling Marlin firmware.." 
             platformio run -d ${REPO_NAME}/
             success=$?
-
             echo "$success"
+            echo ""
 
             if [[ ${success} -eq 0 ]]; then
                 currentpath=`pwd`
@@ -144,41 +152,47 @@ find ./configuration/* -prune -type d | while IFS= read -r machine; do
                 export_filename="firmware_${USE_BRANCH}${USE_TAG}${USE_COMMIT}_${git_commit_hash}_${machinename}"
 
                 # Write out config changes (find //JHG )
-                grep "//JHG" $machine/${USE_CONFIG_VERSION}/*.h > $machine/${USE_CONFIG_VERSION}/config_changes.md
+                echo -e "${YELLOW}[INFO]${ENDCOLOR} Exporting changes" 
+                grep "JHG" $machine/${USE_CONFIG_VERSION}/*.h > $machine/${USE_CONFIG_VERSION}/config_changes.md
+                echo ""
 
                 # convert elf -> BIN 
+                echo -e "${YELLOW}[INFO]${ENDCOLOR} Converting elf -> bin"
                 ~/.platformio/packages/toolchain-atmelavr/bin/avr-objcopy -O binary ./${REPO_NAME}/.pio/build/$BOARD/firmware.elf $OUTPUT_DIR/${export_filename}.bin
+                echo ""
 
-                printf "\nCopying compiled firmware to output folder..\n"
+                # printf "\nCopying compiled firmware to output folder..\n"
+                echo -e "${YELLOW}[INFO]${ENDCOLOR} Copying compiled firmware to output folder.."
                 cd ./${REPO_NAME}/.pio/build/$BOARD
 
                 if [ $(find . -name "*.${FW_EXTENSION}") ];
                 then
-                FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
-                cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/${export_filename}.$FW_EXTENSION
+                    FIRMWARE_NAME=$(find . -name "*.${FW_EXTENSION}" -type f -exec basename {} .${FW_EXTENSION} ';')
+                    cp $FIRMWARE_NAME.$FW_EXTENSION $OUTPUT_DIR/${export_filename}.$FW_EXTENSION
 
-                md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
+                    md5sum $OUTPUT_DIR/${export_filename}.$FW_EXTENSION > $OUTPUT_DIR/${export_filename}.md5
 
-                echo "$(echo $REPO_URL | awk -F'\\.git' '{print $1}')/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
+                    echo "$(echo $REPO_URL | awk -F'\\.git' '{print $1}')/${git_commit_hash}" > $OUTPUT_DIR/${export_filename}.md
 
-                printf "\nValidating firmware checksum.."
-                if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
-                then
-                    printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
+                    # printf "\nValidating firmware checksum.."
                     echo ""
-                    echo "  (\.   \      ,/)"
-                    echo "   \(   |\     )/    Yer done!"
-                    echo "   //\  | \   /\\"
-                    echo "  (/ /\_#oo#_/\ \)   Happy 3D-Printing!"
-                    echo "   \/\  ####  /\/"
-                    echo "        '##'"
-                    echo ""
-
-                else
-                    printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
-                    printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
-                    exit 1
-                fi
+                    echo -e "${YELLOW}[INFO]${ENDCOLOR} Validating firmware checksum.."
+                    if md5sum -c $OUTPUT_DIR/${export_filename}.md5;
+                    then
+                        printf "\e[0mMD5 Checksum Validation: \e[1;32mSucceeded\n"
+                        echo ""
+                        echo "  (\.   \      ,/)"
+                        echo "   \(   |\     )/    Yer done!"
+                        echo "   //\  | \   /\\"
+                        echo "  (/ /\_#oo#_/\ \)   Happy 3D-Printing!"
+                        echo "   \/\  ####  /\/"
+                        echo "        '##'"
+                        echo ""
+                    else
+                        printf "\e[0mMD5 Checksum Validation: \e[1;31mFailed\n"
+                        printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
+                        exit 1
+                    fi
                 else
                     printf "\e[0mMD5 Checksum Validation: \e[1;31mFirmware file with $FW_EXTENSION file extension not found!\n"
                     printf "\n\e[1;31mBuild failed! \e[0mCheck the output above for errors\n"
