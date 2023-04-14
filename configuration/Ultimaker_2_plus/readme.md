@@ -1,7 +1,7 @@
 # How to upgrade Firmware
 - https://support.makerbot.com/s/article/1667337917778
 
-
+use cura, also to return to stock firmware.
 
 
 # Current:
