@@ -1,6 +1,7 @@
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define STRING_CONFIG_H_AUTHOR "(CoolZeroNL, default config)" // Who made the changes.    // JHG
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define USE_YMAX_PLUG   // JHG - switch is in the back, so max position
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define USE_ZMAX_PLUG   // JHG - switch is in bottom, so max position
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define DEFAULT_MAX_FEEDRATE          { 500, 500, 40, 45 }      // JHG - match speed to org config of the machine
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define Y_HOME_DIR 1     // JHG - Homing is now moving to the front, switch is in the back
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define Z_HOME_DIR 1     // JHG - Homing is now moving to the top, switch is in the bottom
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define X_BED_SIZE 223      // JHG - 220 to 223.0 cura profile size
