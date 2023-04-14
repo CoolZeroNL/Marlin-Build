@@ -1,4 +1,16 @@
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define STRING_CONFIG_H_AUTHOR "(CoolZeroNL, default config)" // Who made the changes.    // JHG
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    // #define DEFAULT_Kp   10.03  // JHG - 8.86
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    // #define DEFAULT_Ki   1.5    // JHG - 0.68
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    // #define DEFAULT_Kd   70     // JHG - 28.86
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    // #define DEFAULT_Kp 9.46     // JHG - PID tuned
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    // #define DEFAULT_Ki 0.76     // JHG - PID tuned
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    // #define DEFAULT_Kd 29.65    // JHG - PID tuned
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    #define DEFAULT_Kp 10.38      // JHG - PID tuned - fan 100%
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    #define DEFAULT_Ki 0.85       // JHG - PID tuned - fan 100%
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:    #define DEFAULT_Kd 31.69      // JHG - PID tuned - fan 100%
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:  #define DEFAULT_bedKp 28.22     // JHG - PID tuned
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:  #define DEFAULT_bedKi 4.85      // JHG - PID tuned
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:  #define DEFAULT_bedKd 109.41    // JHG - PID tuned
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define USE_YMAX_PLUG   // JHG - switch is in the back, so max position
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define USE_ZMAX_PLUG   // JHG - switch is in bottom, so max position
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define DEFAULT_MAX_FEEDRATE          { 500, 500, 40, 45 }      // JHG - match speed to org config of the machine
