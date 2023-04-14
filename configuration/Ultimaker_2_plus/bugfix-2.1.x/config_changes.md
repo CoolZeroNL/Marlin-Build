@@ -6,3 +6,5 @@
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define X_BED_SIZE 223      // JHG - 220 to 223.0 cura profile size
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define Y_BED_SIZE 223      // JHG - 220 to 223.0 cura profile size
 ./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration.h:#define Z_MAX_POS 210     // JHG - 210 also fits beter for MESH homing.
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration_adv.h:  #define CASE_LIGHT_DEFAULT_ON true          // JHG - Set default power-up state on
+./configuration/Ultimaker_2_plus/bugfix-2.1.x/Configuration_adv.h:  #define CASE_LIGHT_DEFAULT_BRIGHTNESS 52    // JHG - 20% - Set default power-up brightness (0-255, requires PWM pin)
