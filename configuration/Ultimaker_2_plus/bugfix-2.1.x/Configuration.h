@@ -678,9 +678,20 @@
     #define DEFAULT_Ki_LIST {   1.50,   1.08 }
     #define DEFAULT_Kd_LIST {  70.00, 114.00 }
   #else
-    #define DEFAULT_Kp   8.86
-    #define DEFAULT_Ki   0.68
-    #define DEFAULT_Kd  28.86
+    // from the machine
+    // #define DEFAULT_Kp   10.03  // JHG - 8.86
+    // #define DEFAULT_Ki   1.5    // JHG - 0.68
+    // #define DEFAULT_Kd   70     // JHG - 28.86
+
+    // // FAN OFF
+    // #define DEFAULT_Kp 9.46     // JHG - PID tuned
+    // #define DEFAULT_Ki 0.76     // JHG - PID tuned
+    // #define DEFAULT_Kd 29.65    // JHG - PID tuned
+    
+    // FAN ON
+    #define DEFAULT_Kp 10.38      // JHG - PID tuned - fan 100%
+    #define DEFAULT_Ki 0.85       // JHG - PID tuned - fan 100%
+    #define DEFAULT_Kd 31.69      // JHG - PID tuned - fan 100%
   #endif
 #endif
 
@@ -767,9 +778,13 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 124.55
-  #define DEFAULT_bedKi 23.46
-  #define DEFAULT_bedKd 165.29
+  // #define DEFAULT_bedKp 124.55
+  // #define DEFAULT_bedKi 23.46
+  // #define DEFAULT_bedKd 165.29
+
+  #define DEFAULT_bedKp 28.22     // JHG - PID tuned
+  #define DEFAULT_bedKi 4.85      // JHG - PID tuned
+  #define DEFAULT_bedKd 109.41    // JHG - PID tuned
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
