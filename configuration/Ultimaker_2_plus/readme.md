@@ -3,7 +3,6 @@
 
 use cura, also to return to stock firmware.
 
-
 # Current:
 
 Marlin 1.0.0
